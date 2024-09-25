@@ -45,7 +45,7 @@ struct racional simplifica_r(struct racional r)
 
 struct racional cria_r(long numerador, long denominador)
 {
-    struct racional r = {numerador, denominador};
+    struct racional r = { numerador, denominador };
     return r;
 }
 
@@ -59,7 +59,7 @@ int valido_r(struct racional r)
 
 struct racional sorteia_r(long min, long max)
 {
-    struct racional r = {aleat(min, max), aleat(min, max)};
+    struct racional r = { aleat(min, max), aleat(min, max) };
     return simplifica_r(r);
 }
 
@@ -121,12 +121,12 @@ struct racional multiplica_r(struct racional r1, struct racional r2)
     r1 = simplifica_r(r1);
     r2 = simplifica_r(r2);
 
-    struct racional r = {r1.num * r2.num, r1.den * r2.den};
+    struct racional r = { r1.num * r2.num, r1.den * r2.den };
     return simplifica_r(r);
 }
 
 struct racional divide_r(struct racional r1, struct racional r2)
 {
-    r2 = (struct racional) {r2.den, r2.num};
+    r2 = (struct racional){ r2.den, r2.num };
     return multiplica_r(r1, r2);
 }
