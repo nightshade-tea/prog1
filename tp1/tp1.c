@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include "racional.h"
 
+void imprime_espaco_r(struct racional r);
+
 int main()
 {
     srand(0);
@@ -18,15 +20,13 @@ int main()
 
     int i;
     for (i = 1; i <= n; i++) {
-        printf("%d: ", i);
+        printf("%d:", i);
 
         struct racional r1 = sorteia_r(-max, max);
         struct racional r2 = sorteia_r(-max, max);
 
-        imprime_r(r1);
-        printf(" ");
-        imprime_r(r2);
-        printf(" ");
+        imprime_espaco_r(r1);
+        imprime_espaco_r(r2);
 
         if (!valido_r(r1) || !valido_r(r2)) {
             printf("NUMERO INVALIDO\n");
@@ -43,15 +43,18 @@ int main()
             return 1;
         }
 
-        imprime_r(soma);
-        printf(" ");
-        imprime_r(sub);
-        printf(" ");
-        imprime_r(mult);
-        printf(" ");
-        imprime_r(div);
+        imprime_espaco_r(soma);
+        imprime_espaco_r(sub);
+        imprime_espaco_r(mult);
+        imprime_espaco_r(div);
         printf("\n");
     }
 
     return 0;
+}
+
+void imprime_espaco_r(struct racional r)
+{
+    printf(" ");
+    imprime_r(r);
 }
