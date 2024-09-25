@@ -28,7 +28,7 @@ int main()
         imprime_espaco_r(r2);
 
         if (!valido_r(r1) || !valido_r(r2)) {
-            printf("NUMERO INVALIDO\n");
+            printf(" NUMERO INVALIDO\n");
             return 1;
         }
 
@@ -38,7 +38,7 @@ int main()
         struct racional div = divide_r(r1, r2);
 
         if (!valido_r(div)) {
-            printf("DIVISAO INVALIDA\n");
+            printf(" DIVISAO INVALIDA\n");
             return 1;
         }
 
