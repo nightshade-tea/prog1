@@ -4,9 +4,9 @@
 
 See more information about the tool at:
 
-    https://clang.llvm.org/docs/ClangFormat.html
+https://clang.llvm.org/docs/ClangFormat.html
 
-    https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 
 ## Review files and patches for coding style
 
@@ -27,8 +27,8 @@ Remember that you can always tweak the changes afterwards in those cases where t
 
 There are integrations for many popular text editors. For some of them, like vim, emacs, BBEdit and Visual Studio you can find support built-in. For instructions, read the appropriate section at:
 
-    https://clang.llvm.org/docs/ClangFormat.html
+https://clang.llvm.org/docs/ClangFormat.html
 
 ### Source
 
-    https://docs.kernel.org/dev-tools/clang-format.html
+https://docs.kernel.org/dev-tools/clang-format.html
