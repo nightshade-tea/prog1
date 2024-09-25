@@ -9,9 +9,9 @@
 #include <stdlib.h>
 #include "racional.h"
 
-int main ()
+int main()
 {
-    srand (0);
+    srand(0);
 
     int n, max;
     scanf("%d %d", &n, &max);
@@ -22,7 +22,7 @@ int main ()
 
         struct racional r1 = sorteia_r(-max, max);
         struct racional r2 = sorteia_r(-max, max);
-        
+
         imprime_r(r1);
         printf(" ");
         imprime_r(r2);
