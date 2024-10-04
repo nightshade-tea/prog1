@@ -22,7 +22,7 @@ void ler_vr(struct racional v[], int tam)
 void imprime_vr(struct racional v[], int tam)
 {
     printf("VETOR =");
-    
+
     int i;
     for (i = 0; i < tam; i++) {
         printf(" ");
@@ -62,9 +62,9 @@ void ordena_vr(struct racional v[], int tam)
     int i, t;
     t = 0;
 
-    for (i = 0; i < tam-1; i++) {
-        if (compara_r(v[i], v[i+1]) == 1) {
-            troca_r(&v[i], &v[i+1]);
+    for (i = 0; i < tam - 1; i++) {
+        if (compara_r(v[i], v[i + 1]) == 1) {
+            troca_r(&v[i], &v[i + 1]);
             t++;
         }
     }
@@ -72,7 +72,7 @@ void ordena_vr(struct racional v[], int tam)
     if (t == 0)
         return;
 
-    ordena_vr(v, tam-1);
+    ordena_vr(v, tam - 1);
 }
 
 struct racional soma_vr(struct racional v[], int tam)
@@ -106,7 +106,7 @@ int main()
 
     ordena_vr(vetor, n);
     imprime_vr(vetor, n);
-    
+
     printf("SOMA = ");
     imprime_r(soma_vr(vetor, n));
     printf("\n");
