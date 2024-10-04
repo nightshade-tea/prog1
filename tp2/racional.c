@@ -86,6 +86,22 @@ void imprime_r(struct racional r)
     printf("%ld/%ld", r.num, r.den);
 }
 
+int compara_r(struct racional r1, struct racional r2)
+{
+    if (!valido_r(r1) || !valido_r(r2))
+        return -2;
+
+    struct racional dif;
+    subtrai_r(r1, r2, &dif);
+
+    if (dif.num < 0)
+        return -1;
+    if (dif.num > 0)
+        return 1;
+
+    return 0;
+}
+
 int soma_r(struct racional r1, struct racional r2, struct racional *r3)
 {
     if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
@@ -130,20 +146,4 @@ int divide_r(struct racional r1, struct racional r2, struct racional *r3)
 
     r2 = (struct racional){ r2.den, r2.num };
     return multiplica_r(r1, r2, r3);
-}
-
-int compara_r(struct racional r1, struct racional r2)
-{
-    if (!valido_r(r1) || !valido_r(r2))
-        return -2;
-
-    struct racional dif;
-    subtrai_r(r1, r2, &dif);
-
-    if (dif.num < 0)
-        return -1;
-    if (dif.num > 0)
-        return 1;
-
-    return 0;
 }
