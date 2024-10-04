@@ -32,6 +32,7 @@ void imprime_vr(struct racional v[], int tam)
     printf("\n");
 }
 
+/* remove os elementos invalidos do vetor e retorna seu novo tamanho. */
 int valida_vr(struct racional v[], int tam)
 {
     int i, pos;
