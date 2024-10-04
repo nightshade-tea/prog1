@@ -22,8 +22,6 @@ long mmc(long a, long b)
 }
 
 /* Recebe um ponteiro para racional e o simplifica.
- * Se ambos numerador e denominador forem negativos, deve retornar um positivo.
- * Se o denominador for negativo, o sinal deve migrar para o numerador.
  * Se r for inválido, retorna 0. 
  * Se a operação foi bem sucedida, retorna 1. */
 int simplifica_r(struct racional *r)
@@ -118,7 +116,9 @@ int multiplica_r(struct racional r1, struct racional r2, struct racional *r3)
     simplifica_r(&r1);
     simplifica_r(&r2);
 
-    *r3 = (struct racional){ r1.num * r2.num, r1.den * r2.den };
+    r3->num = r1.num * r2.num;
+    r3->den = r1.den * r2.den;
+
     simplifica_r(r3);
     return 1;
 }
