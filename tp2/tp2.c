@@ -3,6 +3,7 @@
 
 #define MAX_TAM 100
 
+/* Lê um número racional. */
 struct racional ler_r()
 {
     int num, den;
@@ -11,6 +12,7 @@ struct racional ler_r()
     return cria_r(num, den);
 }
 
+/* Lê um vetor de números racionais. */
 void ler_vr(struct racional v[], int tam)
 {
     int i;
@@ -19,6 +21,7 @@ void ler_vr(struct racional v[], int tam)
     }
 }
 
+/* Imprime um vetor de números racionais. */
 void imprime_vr(struct racional v[], int tam)
 {
     printf("VETOR =");
@@ -48,6 +51,7 @@ int valida_vr(struct racional v[], int tam)
     return pos;
 }
 
+/* Troca dois números racionais de posição. */
 void troca_r(struct racional *a, struct racional *b)
 {
     struct racional tmp = *a;
@@ -55,6 +59,7 @@ void troca_r(struct racional *a, struct racional *b)
     *b = tmp;
 }
 
+/* Ordena um vetor de números racionais. */
 void ordena_vr(struct racional v[], int tam)
 {
     if (tam == 1)
@@ -76,6 +81,7 @@ void ordena_vr(struct racional v[], int tam)
     ordena_vr(v, tam - 1);
 }
 
+/* Soma os elementos de um vetor de racionais e retorna o resultado. */
 struct racional soma_vr(struct racional v[], int tam)
 {
     struct racional soma = cria_r(0, 1);
