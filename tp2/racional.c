@@ -67,7 +67,7 @@ void imprime_r(struct racional r)
     simplifica_r(&r);
 
     if (!valido_r(r)) {
-        printf("INVALIDO");
+        printf("NaN");
         return;
     }
     if (r.num == 0) {
