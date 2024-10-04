@@ -132,11 +132,11 @@ int divide_r(struct racional r1, struct racional r2, struct racional *r3)
     return multiplica_r(r1, r2, r3);
 }
 
-int compara_r (struct racional r1, struct racional r2)
+int compara_r(struct racional r1, struct racional r2)
 {
     if (!valido_r(r1) || !valido_r(r2))
         return -2;
-    
+
     struct racional dif;
     subtrai_r(r1, r2, &dif);
 
