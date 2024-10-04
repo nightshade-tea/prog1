@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "racional.h"
 
-/* retorna um número aleatório entre min e max, inclusive. */
+/* Retorna um número aleatório entre min e max, inclusive. */
 long aleat(long min, long max)
 {
     return rand() % (max - min + 1) + min;
