@@ -1,6 +1,4 @@
-# Makefile de exemplo (Manual do GNU Make)
-     
-CFLAGS = -Wall -Wextra -g -std=c99 # flags de compilacao
+CFLAGS = -Wall -Wextra -g -std=c99
 CC = gcc
 
 all: tp3.o racional.o
