@@ -26,7 +26,7 @@ long mmc(long a, long b)
  * Se a operação foi bem sucedida, retorna 1. */
 int simplifica_r(struct racional *r)
 {
-    if (!valido_r(*r))
+    if (!valido_r(r))
         return 0;
 
     if (r->den < 0) {
@@ -41,52 +41,64 @@ int simplifica_r(struct racional *r)
     return 1;
 }
 
-struct racional cria_r(long numerador, long denominador)
+struct racional *cria_r(long numerador, long denominador)
 {
-    struct racional r = { numerador, denominador };
+    struct racional *r = malloc(sizeof(struct racional));
+
+    if (r == NULL)
+        return NULL;
+
+    *r = (struct racional){ numerador, denominador };
+
     return r;
 }
 
-int valido_r(struct racional r)
+void destroi_r(struct racional *r)
 {
-    if (r.den == 0)
+    free(r);
+    r = NULL;
+}
+
+int valido_r(struct racional *r)
+{
+    if (r == NULL)
+        return 0;
+    if (r->den == 0)
         return 0;
 
     return 1;
 }
 
-struct racional sorteia_r(long min, long max)
+void imprime_r(struct racional *r)
 {
-    struct racional r = { aleat(min, max), aleat(min, max) };
-    simplifica_r(&r);
-    return r;
-}
+    if (r == NULL) {
+        printf("NULL");
+        return;
+    }
 
-void imprime_r(struct racional r)
-{
-    simplifica_r(&r);
+    simplifica_r(r);
 
     if (!valido_r(r)) {
         printf("NaN");
         return;
     }
-    if (r.num == 0) {
+    if (r->num == 0) {
         printf("0");
         return;
     }
-    if (r.den == 1) {
-        printf("%ld", r.num);
+    if (r->den == 1) {
+        printf("%ld", r->num);
         return;
     }
-    if (r.num == r.den) {
+    if (r->num == r->den) {
         printf("1");
         return;
     }
 
-    printf("%ld/%ld", r.num, r.den);
+    printf("%ld/%ld", r->num, r->den);
 }
 
-int compara_r(struct racional r1, struct racional r2)
+int compara_r(struct racional *r1, struct racional *r2)
 {
     if (!valido_r(r1) || !valido_r(r2))
         return -2;
@@ -102,48 +114,51 @@ int compara_r(struct racional r1, struct racional r2)
     return 0;
 }
 
-int soma_r(struct racional r1, struct racional r2, struct racional *r3)
+int soma_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
     if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
         return 0;
 
-    simplifica_r(&r1);
-    simplifica_r(&r2);
+    simplifica_r(r1);
+    simplifica_r(r2);
 
-    r3->den = mmc(r1.den, r2.den);
-    r3->num = r1.num * (r3->den / r1.den);
-    r3->num += r2.num * (r3->den / r2.den);
+    r3->den = mmc(r1->den, r2->den);
+    r3->num = r1->num * (r3->den / r1->den);
+    r3->num += r2->num * (r3->den / r2->den);
 
     simplifica_r(r3);
     return 1;
 }
 
-int subtrai_r(struct racional r1, struct racional r2, struct racional *r3)
-{
-    r2.num *= -1;
-    return soma_r(r1, r2, r3);
-}
-
-int multiplica_r(struct racional r1, struct racional r2, struct racional *r3)
-{
-    if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
-        return 0;
-
-    simplifica_r(&r1);
-    simplifica_r(&r2);
-
-    r3->num = r1.num * r2.num;
-    r3->den = r1.den * r2.den;
-
-    simplifica_r(r3);
-    return 1;
-}
-
-int divide_r(struct racional r1, struct racional r2, struct racional *r3)
+int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
 {
     if (!valido_r(r2))
         return 0;
 
-    r2 = (struct racional){ r2.den, r2.num };
+    r2->num *= -1;
+    return soma_r(r1, r2, r3);
+}
+
+int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
+{
+    if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
+        return 0;
+
+    simplifica_r(r1);
+    simplifica_r(r2);
+
+    r3->num = r1->num * r2->num;
+    r3->den = r1->den * r2->den;
+
+    simplifica_r(r3);
+    return 1;
+}
+
+int divide_r(struct racional *r1, struct racional *r2, struct racional *r3)
+{
+    if (!valido_r(r2))
+        return 0;
+
+    *r2 = (struct racional){ r2->den, r2->num };
     return multiplica_r(r1, r2, r3);
 }
