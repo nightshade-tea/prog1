@@ -56,7 +56,6 @@ struct racional *cria_r(long numerador, long denominador)
 void destroi_r(struct racional *r)
 {
     free(r);
-    r = NULL;
 }
 
 int valido_r(struct racional *r)
@@ -136,10 +135,9 @@ int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    r3->num = -1 * r2->num;
-    r3->den = r2->den;
+    struct racional oposto_r2 = { -1 * r2->num, r2->den };
 
-    return soma_r(r1, r3, r3);
+    return soma_r(r1, &oposto_r2, r3);
 }
 
 int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
@@ -163,8 +161,7 @@ int divide_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    r3->num = r2->den;
-    r3->den = r2->num;
+    struct racional inverso_r2 = { r2->den, r2->num };
 
-    return multiplica_r(r1, r3, r3);
+    return multiplica_r(r1, &inverso_r2, r3);
 }

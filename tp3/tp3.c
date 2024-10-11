@@ -4,7 +4,12 @@
 
 #define MAX_TAM 100
 
-/* Cria um vetor de ponteiros para racional e retorna seu endereço. */
+/* Cria um vetor de ponteiros para racional e retorna seu endereço.
+ * Parâmetros:
+ * - tam: tamanho do vetor a ser criado.
+ * Retorno:
+ * - Endereço do vetor alocado.
+ */
 struct racional **cria_vr(int tam)
 {
     struct racional **v;
@@ -18,27 +23,38 @@ struct racional **cria_vr(int tam)
     return v;
 }
 
-/* Libera a memória alocada para um vetor de ponteiros para racional. */
-void destroi_vr(struct racional *v[], int tam)
+/* Libera a memória alocada para os elementos de um vetor de ponteiros para
+ * racional.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ */
+void destroi_vr(struct racional **v, int tam)
 {
     int i;
-    for (i = 0; i < tam; i++)
+    for (i = 0; i < tam; i++) {
         destroi_r(v[i]);
-
-    free(v);
-    v = NULL;
+        v[i] = NULL;
+    }
 }
 
-/* Lê um número racional, cria e retorna seu endereço. */
+/* Lê um número racional da entrada padrão, cria e retorna seu endereço.
+ * Retorno:
+ * - Endereço do número racional criado.
+ */
 struct racional *ler_r()
 {
-    int num, den;
-    scanf("%d %d", &num, &den);
+    long num, den;
+    scanf("%ld %ld", &num, &den);
 
     return cria_r(num, den);
 }
 
-/* Preenche um vetor de ponteiros para racional. */
+/* Preenche um vetor de ponteiros para racional lendo valores da entrada padrão.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ */
 void ler_vr(struct racional *v[], int tam)
 {
     int i;
@@ -46,7 +62,11 @@ void ler_vr(struct racional *v[], int tam)
         v[i] = ler_r();
 }
 
-/* Imprime o conteúdo de um vetor de números racionais. */
+/* Imprime o conteúdo de um vetor de ponteiros para racional.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ */
 void imprime_vr(struct racional *v[], int tam)
 {
     printf("VETOR =");
@@ -60,7 +80,13 @@ void imprime_vr(struct racional *v[], int tam)
     printf("\n");
 }
 
-/* Remove os elementos inválidos do vetor e retorna seu novo tamanho. */
+/* Remove os elementos inválidos do vetor e retorna seu novo tamanho.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ * Retorno:
+ * - Novo tamanho do vetor após a remoção dos elementos inválidos.
+ */
 int valida_vr(struct racional *v[], int tam)
 {
     int i, pos;
@@ -70,28 +96,32 @@ int valida_vr(struct racional *v[], int tam)
         if (valido_r(v[i])) {
             v[pos] = v[i];
             pos++;
+        } else {
+            destroi_r(v[i]);
+            v[i] = NULL;
         }
-    }
-
-    v = realloc(v, pos * sizeof(struct racional *));
-
-    if (v == NULL) {
-        fprintf(stderr, "FALHA NA ALOCAÇÃO EM valida_vr()\n");
-        exit(1);
     }
 
     return pos;
 }
 
-/* Troca dois números racionais de posição. */
-void troca_r(struct racional *a, struct racional *b)
+/* Troca dois ponteiros de número racional de posição.
+ * Parâmetros:
+ * - a: ponteiro para o primeiro ponteiro de racional.
+ * - b: ponteiro para o segundo ponteiro de racional.
+ */
+void troca_r(struct racional **a, struct racional **b)
 {
-    struct racional tmp = *a;
+    struct racional *tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-/* Ordena um vetor de números racionais. */
+/* Ordena um vetor de ponteiros para número racional em ordem crescente.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ */
 void ordena_vr(struct racional *v[], int tam)
 {
     if (tam == 1)
@@ -102,7 +132,7 @@ void ordena_vr(struct racional *v[], int tam)
 
     for (i = 0; i < tam - 1; i++) {
         if (compara_r(v[i], v[i + 1]) == 1) {
-            troca_r(v[i], v[i + 1]);
+            troca_r(&v[i], &v[i + 1]);
             t++;
         }
     }
@@ -113,14 +143,24 @@ void ordena_vr(struct racional *v[], int tam)
     ordena_vr(v, tam - 1);
 }
 
-/* Soma os elementos de um vetor de racionais e retorna o resultado. */
+/* Soma os elementos de um vetor de ponteiros para racional e retorna o endereço
+ * do racional que contém o resultado.
+ * Parâmetros:
+ * - v: vetor de ponteiros para racional.
+ * - tam: tamanho do vetor.
+ * Retorno:
+ * - Endereço do número racional que contém a soma dos elementos do vetor.
+ */
 struct racional *soma_vr(struct racional *v[], int tam)
 {
     struct racional *soma = cria_r(0, 1);
+    struct racional tmp;
 
     int i;
-    for (i = 0; i < tam; i++)
-        soma_r(v[i], soma, soma);
+    for (i = 0; i < tam; i++) {
+        soma_r(v[i], soma, &tmp);
+        *soma = tmp;
+    }
 
     return soma;
 }
@@ -154,7 +194,13 @@ int main()
     printf("\n");
 
     destroi_vr(vetor, n);
+    imprime_vr(vetor, n);
+
+    free(vetor);
+    vetor = NULL;
+
     destroi_r(soma);
+    soma = NULL;
 
     return 0;
 }
