@@ -127,6 +127,7 @@ int soma_r(struct racional *r1, struct racional *r2, struct racional *r3)
     r3->num += r2->num * (r3->den / r2->den);
 
     simplifica_r(r3);
+
     return 1;
 }
 
@@ -135,8 +136,10 @@ int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    r2->num *= -1;
-    return soma_r(r1, r2, r3);
+    r3->num = -1 * r2->num;
+    r3->den = r2->den;
+
+    return soma_r(r1, r3, r3);
 }
 
 int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
@@ -151,6 +154,7 @@ int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
     r3->den = r1->den * r2->den;
 
     simplifica_r(r3);
+
     return 1;
 }
 
@@ -159,6 +163,8 @@ int divide_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    *r2 = (struct racional){ r2->den, r2->num };
-    return multiplica_r(r1, r2, r3);
+    r3->num = r2->den;
+    r3->den = r2->num;
+
+    return multiplica_r(r1, r3, r3);
 }
