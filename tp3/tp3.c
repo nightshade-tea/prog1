@@ -173,7 +173,7 @@ int main()
     scanf("%d", &n);
 
     if (n <= 0 || n >= MAX_TAM) {
-        printf("VALOR INVALIDO\n");
+        fprintf(stderr, "VALOR INVALIDO\n");
         return 1;
     }
 
