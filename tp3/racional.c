@@ -48,7 +48,8 @@ struct racional *cria_r(long numerador, long denominador)
     if (r == NULL)
         return NULL;
 
-    *r = (struct racional){ numerador, denominador };
+    r->num = numerador;
+    r->den = denominador;
 
     return r;
 }
@@ -87,10 +88,6 @@ void imprime_r(struct racional *r)
     }
     if (r->den == 1) {
         printf("%ld", r->num);
-        return;
-    }
-    if (r->num == r->den) {
-        printf("1");
         return;
     }
 
@@ -135,9 +132,9 @@ int subtrai_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    struct racional oposto_r2 = { -1 * r2->num, r2->den };
+    struct racional op_r2 = { -1 * r2->num, r2->den };
 
-    return soma_r(r1, &oposto_r2, r3);
+    return soma_r(r1, &op_r2, r3);
 }
 
 int multiplica_r(struct racional *r1, struct racional *r2, struct racional *r3)
@@ -161,7 +158,7 @@ int divide_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r2))
         return 0;
 
-    struct racional inverso_r2 = { r2->den, r2->num };
+    struct racional inv_r2 = { r2->den, r2->num };
 
-    return multiplica_r(r1, &inverso_r2, r3);
+    return multiplica_r(r1, &inv_r2, r3);
 }
