@@ -4,6 +4,23 @@
 
 #define MAX_TAM 100
 
+/* Lê um número racional da entrada padrão, cria e retorna seu endereço. */
+struct racional *ler_r()
+{
+    struct racional *r;
+    long num, den;
+
+    scanf("%ld %ld", &num, &den);
+    r = cria_r(num, den);
+
+    if (r == NULL) {
+        fprintf(stderr, "FALHA NA ALOCAÇÃO EM ler_r()\n");
+        exit(1);
+    }
+
+    return r;
+}
+
 /* Cria um vetor de ponteiros para racional e retorna seu endereço. */
 struct racional **cria_vr(int tam)
 {
@@ -27,23 +44,6 @@ void destroi_vr(struct racional **v, int tam)
         destroi_r(v[i]);
         v[i] = NULL;
     }
-}
-
-/* Lê um número racional da entrada padrão, cria e retorna seu endereço. */
-struct racional *ler_r()
-{
-    struct racional *r;
-    long num, den;
-
-    scanf("%ld %ld", &num, &den);
-    r = cria_r(num, den);
-
-    if (r == NULL) {
-        fprintf(stderr, "FALHA NA ALOCAÇÃO EM ler_r()\n");
-        exit(1);
-    }
-
-    return r;
 }
 
 /* Preenche um vetor de ponteiros para racional lendo valores da entrada
