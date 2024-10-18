@@ -125,10 +125,7 @@ void ordena_vr(struct racional *v[], int tam)
  * endereço do racional que contém o resultado. */
 struct racional *soma_vr(struct racional *v[], int tam)
 {
-    struct racional *soma;
-    struct racional tmp;
-
-    soma = cria_r(0, 1);
+    struct racional *soma = cria_r(0, 1);
 
     if (soma == NULL) {
         fprintf(stderr, "FALHA NA ALOCAÇÃO EM soma_vr()\n");
@@ -136,10 +133,8 @@ struct racional *soma_vr(struct racional *v[], int tam)
     }
 
     int i;
-    for (i = 0; i < tam; i++) {
-        soma_r(v[i], soma, &tmp);
-        *soma = tmp;
-    }
+    for (i = 0; i < tam; i++)
+        soma_r(v[i], soma, soma);
 
     return soma;
 }
