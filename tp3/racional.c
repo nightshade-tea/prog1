@@ -115,12 +115,18 @@ int soma_r(struct racional *r1, struct racional *r2, struct racional *r3)
     if (!valido_r(r1) || !valido_r(r2) || r3 == NULL)
         return 0;
 
+    // tmp é necessário para que operações como r1 = r1 + r2 (quando r3 é algum
+    // dos operandos) executem corretamente.
+    struct racional tmp;
+
     simplifica_r(r1);
     simplifica_r(r2);
 
-    r3->den = mmc(r1->den, r2->den);
-    r3->num = r1->num * (r3->den / r1->den);
-    r3->num += r2->num * (r3->den / r2->den);
+    tmp.den = mmc(r1->den, r2->den);
+    tmp.num = r1->num * (tmp.den / r1->den);
+    tmp.num += r2->num * (tmp.den / r2->den);
+
+    *r3 = tmp;
 
     simplifica_r(r3);
 
