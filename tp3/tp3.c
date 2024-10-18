@@ -32,10 +32,18 @@ void destroi_vr(struct racional **v, int tam)
 /* Lê um número racional da entrada padrão, cria e retorna seu endereço. */
 struct racional *ler_r()
 {
+    struct racional *r;
     long num, den;
-    scanf("%ld %ld", &num, &den);
 
-    return cria_r(num, den);
+    scanf("%ld %ld", &num, &den);
+    r = cria_r(num, den);
+
+    if (r == NULL) {
+        fprintf(stderr, "FALHA NA ALOCAÇÃO EM ler_r()\n");
+        exit(1);
+    }
+
+    return r;
 }
 
 /* Preenche um vetor de ponteiros para racional lendo valores da entrada
@@ -117,8 +125,15 @@ void ordena_vr(struct racional *v[], int tam)
  * endereço do racional que contém o resultado. */
 struct racional *soma_vr(struct racional *v[], int tam)
 {
-    struct racional *soma = cria_r(0, 1);
+    struct racional *soma;
     struct racional tmp;
+
+    soma = cria_r(0, 1);
+
+    if (soma == NULL) {
+        fprintf(stderr, "FALHA NA ALOCAÇÃO EM soma_vr()\n");
+        exit(1);
+    }
 
     int i;
     for (i = 0; i < tam; i++) {
