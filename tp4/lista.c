@@ -274,8 +274,7 @@ void lista_imprime(struct lista_t *lst)
     printf("%d", aux->valor);
 
     aux = aux->prox;
-    int i;
-    for (i = 1; i < lst->tamanho - 1; i++) {
+    while (aux != NULL) {
         printf(" %d", aux->valor);
         aux = aux->prox;
     }
