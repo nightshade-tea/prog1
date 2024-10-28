@@ -168,41 +168,49 @@ int lista_insere(struct lista_t *lst, int item, int pos)
 
     // inserir no início
     if (pos == 0) {
+        if (lst->prim == NULL) {
+            item_destroi(&novo);
+            return -1;
+        }
+
         novo->prox = lst->prim;
         lst->prim = novo;
-
-        if (novo->prox != NULL)
-            novo->prox->ant = novo;
+        novo->prox->ant = novo;
 
         return ++(lst->tamanho);
     }
 
     // inserir no fim
     if (pos == -1 || pos >= (lst->tamanho - 1)) {
+        if (lst->ult == NULL) {
+            item_destroi(&novo);
+            return -1;
+        }
+
         novo->ant = lst->ult;
         lst->ult = novo;
-
-        if (novo->ant != NULL)
-            novo->ant->prox = novo;
+        novo->ant->prox = novo;
 
         return ++(lst->tamanho);
     }
 
-    novo->ant = lista_busca_posicao(lst, pos - 1);
+    struct item_t *pivot = lista_busca_posicao(lst, pos);
 
-    if (novo->ant == NULL) {
+    if (pivot == NULL) {
         item_destroi(&novo);
         return -1;
     }
 
-    if (novo->ant->prox == NULL) {
+    if (pivot->ant == NULL) {
         item_destroi(&novo);
         return -1;
     }
 
-    novo->prox = novo->ant->prox;
-    novo->ant->prox = novo;
-    novo->prox->ant = novo;
+    novo->prox = pivot;
+    novo->ant = pivot->ant;
+
+    pivot->ant->prox = novo;
+    pivot->ant = novo;
 
     return ++(lst->tamanho);
 }
