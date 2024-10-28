@@ -80,6 +80,13 @@ int lista_insere(struct lista_t *lst, int item, int pos)
     if (novo == NULL)
         return -1;
 
+    // inserir em uma lista vazia
+    if (lst->tamanho == 0) {
+        lst->prim = lst->ult = novo;
+
+        return ++(lst->tamanho);
+    }
+
     // inserir no início
     if (pos == 0) {
         novo->prox = lst->prim;
@@ -141,6 +148,17 @@ int lista_retira(struct lista_t *lst, int *item, int pos)
         return -1;
 
     struct item_t *aux;
+
+    // retirar em uma lista com 1 elemento
+    if (lst->tamanho == 1) {
+        aux = lst->prim;
+        lst->prim = lst->ult = NULL;
+
+        *item = aux->valor;
+        free(aux);
+
+        return --(lst->tamanho);
+    }
 
     // retirar do início
     if (pos == 0) {
@@ -243,10 +261,16 @@ int lista_procura(struct lista_t *lst, int valor)
     struct item_t *aux = lst->prim;
     int pos = 0;
 
-    while (aux->valor != valor && pos < lst->tamanho) {
+    while (aux != NULL) {
+        if (aux->valor == valor)
+            break;
+
         aux = aux->prox;
         pos++;
     }
+
+    if (aux == NULL)
+        return -1;
 
     if (aux->valor != valor)
         return -1;
