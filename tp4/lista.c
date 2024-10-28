@@ -151,7 +151,7 @@ int lista_insere(struct lista_t *lst, int item, int pos)
     if (lst == NULL)
         return -1;
 
-    if (pos < -1)
+    if (!lista_posicao_valida(pos))
         return -1;
 
     struct item_t *novo = item_cria(item, NULL, NULL);
@@ -159,8 +159,7 @@ int lista_insere(struct lista_t *lst, int item, int pos)
     if (novo == NULL)
         return -1;
 
-    // inserir em uma lista vazia
-    if (lst->tamanho == 0) {
+    if (lista_vazia(lst)) {
         lst->prim = lst->ult = novo;
 
         return ++(lst->tamanho);
@@ -178,7 +177,7 @@ int lista_insere(struct lista_t *lst, int item, int pos)
     }
 
     // inserir no fim
-    if (pos == -1 || pos >= lst->tamanho) {
+    if (pos == -1 || pos >= (lst->tamanho - 1)) {
         novo->ant = lst->ult;
         lst->ult = novo;
 
@@ -188,32 +187,21 @@ int lista_insere(struct lista_t *lst, int item, int pos)
         return ++(lst->tamanho);
     }
 
-    // caso geral
-    if (pos < (lst->tamanho / 2)) {
-        novo->ant = lst->prim;
+    novo->ant = lista_busca_posicao(lst, pos - 1);
 
-        int i;
-        for (i = 0; i < pos - 1; i++)
-            novo->ant = novo->ant->prox;
-
-        // após o for, novo->ant aponta para lst[pos-1]
-
-        novo->prox = novo->ant->prox;
-        novo->ant->prox = novo;
-        novo->prox->ant = novo;
-    } else {
-        novo->prox = lst->ult;
-
-        int i;
-        for (i = lst->tamanho - 1; i > pos; i--)
-            novo->prox = novo->prox->ant;
-
-        // após o for, novo->prox aponta para lst[pos]
-
-        novo->ant = novo->prox->ant;
-        novo->ant->prox = novo;
-        novo->prox->ant = novo;
+    if (novo->ant == NULL) {
+        item_destroi(&novo);
+        return -1;
     }
+
+    if (novo->ant->prox == NULL) {
+        item_destroi(&novo);
+        return -1;
+    }
+
+    novo->prox = novo->ant->prox;
+    novo->ant->prox = novo;
+    novo->prox->ant = novo;
 
     return ++(lst->tamanho);
 }
