@@ -231,3 +231,25 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
 
     return lst->tamanho;
 }
+
+int lista_procura(struct lista_t *lst, int valor)
+{
+    if (lst == NULL)
+        return -1;
+
+    if (lst->tamanho == 0)
+        return -1;
+
+    struct item_t *aux = lst->prim;
+    int pos = 0;
+
+    while (aux->valor != valor && pos < lst->tamanho) {
+        aux = aux->prox;
+        pos++;
+    }
+
+    if (aux->valor != valor)
+        return -1;
+
+    return pos;
+}
