@@ -234,8 +234,18 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
      * do fim. mas fazendo dessa forma da diferença com a saída esperada.
      * por enquanto retorna -1 para resolver isso
      */
+
     if (pos >= lst->tamanho)
         return -1;
+
+    if (pos == -1) {
+        if (lst->ult == NULL)
+            return -1;
+
+        *item = lst->ult->valor;
+
+        return lst->tamanho;
+    }
 
     struct item_t *aux;
 
