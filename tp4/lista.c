@@ -7,7 +7,6 @@
 
 /* TODO
  * - modularizar o codigo, há muitos trechos repetidos
- * - adicionar mais funções helper
  * - inconsistencia em lista.h e make teste para a func lista_consulta()
  */
 
@@ -29,6 +28,84 @@ struct item_t *item_cria(int valor, struct item_t *ant, struct item_t *prox)
     item->prox = prox;
 
     return item;
+}
+
+/* Destroi o item especificado no parâmetro.
+ * Não faz nada se o ponteiro for nulo. */
+void item_destroi(struct item_t *item)
+{
+    if (item != NULL)
+        free(item);
+}
+
+/* Verifica se a lista especificada no parâmetro está vazia.
+ * Retorno: 1 se a lista estiver vazia, 0 se não estiver vazia, ou -1 caso o
+ * ponteiro seja nulo. */
+int lista_vazia(struct lista_t *lst)
+{
+    if (lst == NULL)
+        return -1;
+
+    return (lst->tamanho == 0);
+}
+
+/* Verifica se a posição especificada no parâmetro é válida. 
+ * A convenção utilizada é que -1 representa a última posição da lista.
+ * Se a posição for maior do que a última posição da lista, considera-se a
+ * última posição.
+ * Retorno: 1 se a posição for válida, 0 se não for válida. */
+int lista_posicao_valida(int pos)
+{
+    if (pos < -1)
+        return 0;
+
+    return 1;
+}
+
+/* Busca o item na posição especificada no parâmetro. Se a posição for -1
+ * ou maior que a ultima posição, retorna o último item.
+ * Retorno: ponteiro p/ o item em caso de sucesso, NULL se não for encontrado
+ * ou em erro. */
+struct item_t *lista_busca_posicao(struct lista_t *lst, int pos)
+{
+    if (lst == NULL)
+        return NULL;
+
+    if (lista_vazia(lst) || !lista_posicao_valida(pos))
+        return NULL;
+
+    if (pos == 0)
+        return lst->prim;
+
+    if (pos == -1 || pos >= lst->tamanho)
+        return lst->ult;
+
+    struct item_t *atual;
+
+    // aqui escolhemos o caminho mais curto para encontrar o item
+    if (pos < (lst->tamanho / 2)) {
+        atual = lst->prim;
+
+        int i;
+        for (i = 0; i < pos; i++) {
+            if (atual->prox == NULL)
+                return NULL;
+
+            atual = atual->prox;
+        }
+    } else {
+        atual = lst->ult;
+
+        int i;
+        for (i = (lst->tamanho - 1); i > pos; i--) {
+            if (atual->ant == NULL)
+                return NULL;
+
+            atual = atual->ant;
+        }
+    }
+
+    return atual;
 }
 
 struct lista_t *lista_cria()
