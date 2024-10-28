@@ -8,6 +8,7 @@
 /* TODO
  * - modularizar o codigo, há muitos trechos repetidos
  * - adicionar mais funções helper
+ * - inconsistencia em lista.h e make teste para a func lista_consulta()
  */
 
 #include <stdlib.h>
