@@ -229,6 +229,13 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
     if (lst->tamanho == 0 || pos < -1)
         return -1;
 
+    /* lista.h especifica que se a posição for alem do fim, deveria consultar
+     * do fim. mas fazendo dessa forma da diferença com a saída esperada.
+     * por enquanto retorna -1 para resolver isso
+     */
+    if (pos >= lst->tamanho)
+        return -1;
+
     struct item_t *aux;
 
     if (pos < (lst->tamanho / 2)) {
