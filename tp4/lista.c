@@ -133,19 +133,14 @@ struct lista_t *lista_destroi(struct lista_t *lst)
     if (lst == NULL)
         return NULL;
 
-    if (lst->tamanho == 0) {
-        free(lst);
-        return NULL;
+    struct item_t *atual = lst->prim;
+
+    while (atual != NULL) {
+        lst->prim = atual->prox;
+        item_destroi(&atual);
+        atual = lst->prim;
     }
 
-    struct item_t *item = lst->prim;
-    struct item_t *aux;
-
-    while (item != NULL) {
-        aux = item->prox;
-        free(item);
-        item = aux;
-    }
     free(lst);
 
     return NULL;
