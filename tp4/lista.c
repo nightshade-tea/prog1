@@ -5,6 +5,11 @@
 //
 // Implementação com lista encadeada dupla não-circular
 
+/* TODO
+ * - modularizar o codigo, há muitos trechos repetidos
+ * - adicionar mais funções helper
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "lista.h"
