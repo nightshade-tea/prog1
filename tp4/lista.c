@@ -197,3 +197,32 @@ int lista_retira(struct lista_t *lst, int *item, int pos)
 
     return --(lst->tamanho);
 }
+
+int lista_consulta(struct lista_t *lst, int *item, int pos)
+{
+    if (lst == NULL || item == NULL)
+        return -1;
+
+    if (lst->tamanho == 0 || pos < -1)
+        return -1;
+
+    struct item_t *aux;
+
+    if (pos < (lst->tamanho / 2)) {
+        aux = lst->prim;
+
+        int i;
+        for (i = 0; i < pos; i++)
+            aux = aux->prox;
+    } else {
+        aux = lst->ult;
+
+        int i;
+        for (i = lst->tamanho - 1; i > pos; i--)
+            aux = aux->ant;
+    }
+
+    *item = aux->valor;
+
+    return lst->tamanho;
+}
