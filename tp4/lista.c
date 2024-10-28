@@ -253,3 +253,30 @@ int lista_procura(struct lista_t *lst, int valor)
 
     return pos;
 }
+
+int lista_tamanho(struct lista_t *lst)
+{
+    if (lst == NULL)
+        return -1;
+
+    return lst->tamanho;
+}
+
+void lista_imprime(struct lista_t *lst)
+{
+    if (lst == NULL)
+        return;
+
+    if (lst->tamanho == 0)
+        return;
+
+    struct item_t *aux = lst->prim;
+    printf("%d", aux->valor);
+
+    aux = aux->prox;
+    int i;
+    for (i = 1; i < lst->tamanho - 1; i++) {
+        printf(" %d", aux->valor);
+        aux = aux->prox;
+    }
+}
