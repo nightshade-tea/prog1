@@ -8,6 +8,7 @@
 /* TODO
  * - modularizar o codigo, há muitos trechos repetidos
  * - inconsistencia em lista.h e make teste para a func lista_consulta()
+ * - simplificar a logica de lista_insere() e lista_retira()
  */
 
 #include <stdlib.h>
@@ -211,79 +212,80 @@ int lista_retira(struct lista_t *lst, int *item, int pos)
     if (lst == NULL || item == NULL)
         return -1;
 
-    if (lst->tamanho == 0 || pos < -1)
+    if (lista_vazia(lst) || !lista_posicao_valida(pos))
         return -1;
 
-    struct item_t *aux;
+    struct item_t *rmv;
 
     // retirar em uma lista com 1 elemento
     if (lst->tamanho == 1) {
-        aux = lst->prim;
-        lst->prim = lst->ult = NULL;
+        rmv = lst->prim;
 
-        *item = aux->valor;
-        free(aux);
+        if (rmv == NULL)
+            return -1;
+
+        *item = rmv->valor;
+
+        item_destroi(&rmv);
+        lst->prim = lst->ult = NULL;
 
         return --(lst->tamanho);
     }
 
     // retirar do início
     if (pos == 0) {
-        aux = lst->prim;
+        rmv = lst->prim;
 
-        *item = aux->valor;
-        lst->prim = aux->prox;
+        if (rmv == NULL)
+            return -1;
 
-        if (aux->prox != NULL)
-            aux->prox->ant = NULL;
+        if (rmv->prox == NULL)
+            return -1;
 
-        free(aux);
+        *item = rmv->valor;
+
+        lst->prim = rmv->prox;
+        lst->prim->ant = NULL;
+
+        item_destroi(&rmv);
 
         return --(lst->tamanho);
     }
 
     // retirar do fim
-    if (pos == -1 || pos >= lst->tamanho) {
-        aux = lst->ult;
+    if (pos == -1 || pos >= (lst->tamanho - 1)) {
+        rmv = lst->ult;
 
-        *item = aux->valor;
-        lst->ult = aux->ant;
+        if (rmv == NULL)
+            return -1;
 
-        if (aux->ant != NULL)
-            aux->ant->prox = NULL;
+        if (rmv->ant == NULL)
+            return -1;
 
-        free(aux);
+        *item = rmv->valor;
+
+        lst->ult = rmv->ant;
+        lst->ult->prox = NULL;
+
+        item_destroi(&rmv);
 
         return --(lst->tamanho);
     }
 
-    // caso geral
-    if (pos < (lst->tamanho / 2)) {
-        aux = lst->prim;
+    rmv = lista_busca_posicao(lst, pos);
 
-        int i;
-        for (i = 0; i < pos; i++) // prim..pos
-            aux = aux->prox;
+    if (rmv == NULL)
+        return -1;
 
-        // apos o for, aux aponta para lst[pos]
+    if (rmv->ant == NULL || rmv->prox == NULL)
+        return -1;
 
-        aux->ant->prox = aux->prox;
-        aux->prox->ant = aux->ant;
-    } else {
-        aux = lst->ult;
+    *item = rmv->valor;
 
-        int i;
-        for (i = lst->tamanho - 1; i > pos; i--) // ult..pos
-            aux = aux->ant;
+    rmv->ant->prox = rmv->prox;
+    rmv->prox->ant = rmv->ant;
 
-        // apos o for, aux aponta para lst[pos]
-
-        aux->ant->prox = aux->prox;
-        aux->prox->ant = aux->ant;
-    }
-
-    *item = aux->valor;
-    free(aux);
+    item_destroi(&rmv);
 
     return --(lst->tamanho);
 }
