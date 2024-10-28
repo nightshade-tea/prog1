@@ -8,7 +8,7 @@
 /* TODO
  * - modularizar o codigo, há muitos trechos repetidos
  * - inconsistencia em lista.h e make teste para a func lista_consulta()
- * - simplificar a logica de lista_insere() e lista_retira()
+ * - simplificar a logica de lista_insere()
  */
 
 #include <stdlib.h>
@@ -84,7 +84,7 @@ struct item_t *lista_busca_posicao(struct lista_t *lst, int pos)
     if (pos == 0)
         return lst->prim;
 
-    if (pos == -1 || pos >= lst->tamanho)
+    if (pos == -1 || pos >= (lst->tamanho - 1))
         return lst->ult;
 
     struct item_t *atual;
@@ -215,75 +215,23 @@ int lista_retira(struct lista_t *lst, int *item, int pos)
     if (lista_vazia(lst) || !lista_posicao_valida(pos))
         return -1;
 
-    struct item_t *rmv;
-
-    // retirar em uma lista com 1 elemento
-    if (lst->tamanho == 1) {
-        rmv = lst->prim;
-
-        if (rmv == NULL)
-            return -1;
-
-        *item = rmv->valor;
-
-        item_destroi(&rmv);
-        lst->prim = lst->ult = NULL;
-
-        return --(lst->tamanho);
-    }
-
-    // retirar do início
-    if (pos == 0) {
-        rmv = lst->prim;
-
-        if (rmv == NULL)
-            return -1;
-
-        if (rmv->prox == NULL)
-            return -1;
-
-        *item = rmv->valor;
-
-        lst->prim = rmv->prox;
-        lst->prim->ant = NULL;
-
-        item_destroi(&rmv);
-
-        return --(lst->tamanho);
-    }
-
-    // retirar do fim
-    if (pos == -1 || pos >= (lst->tamanho - 1)) {
-        rmv = lst->ult;
-
-        if (rmv == NULL)
-            return -1;
-
-        if (rmv->ant == NULL)
-            return -1;
-
-        *item = rmv->valor;
-
-        lst->ult = rmv->ant;
-        lst->ult->prox = NULL;
-
-        item_destroi(&rmv);
-
-        return --(lst->tamanho);
-    }
-
-    rmv = lista_busca_posicao(lst, pos);
+    struct item_t *rmv = lista_busca_posicao(lst, pos);
 
     if (rmv == NULL)
         return -1;
 
-    if (rmv->ant == NULL || rmv->prox == NULL)
-        return -1;
-
     *item = rmv->valor;
 
-    rmv->ant->prox = rmv->prox;
-    rmv->prox->ant = rmv->ant;
+    // atualizar os ponteiros da lista
+    if (rmv->ant != NULL)
+        rmv->ant->prox = rmv->prox;
+    else
+        lst->prim = rmv->prox;
+
+    if (rmv->prox != NULL)
+        rmv->prox->ant = rmv->ant;
+    else
+        lst->ult = rmv->ant;
 
     item_destroi(&rmv);
 
