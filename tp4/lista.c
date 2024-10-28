@@ -31,11 +31,17 @@ struct item_t *item_cria(int valor, struct item_t *ant, struct item_t *prox)
 }
 
 /* Destroi o item especificado no parâmetro.
- * Não faz nada se o ponteiro for nulo. */
-void item_destroi(struct item_t *item)
+ * Não faz nada se o ponteiro ou o item forem nulos. */
+void item_destroi(struct item_t **item)
 {
-    if (item != NULL)
-        free(item);
+    if (item == NULL)
+        return;
+
+    if (*item == NULL)
+        return;
+
+    free(*item);
+    *item = NULL;
 }
 
 /* Verifica se a lista especificada no parâmetro está vazia.
