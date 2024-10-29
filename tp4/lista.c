@@ -57,20 +57,24 @@ int lista_vazia(struct lista_t *lst)
 }
 
 /* Verifica se a posição especificada no parâmetro é válida. 
- * A convenção utilizada é que -1 representa a última posição da lista.
- * Se a posição for maior do que a última posição da lista, considera-se a
- * última posição.
- * Retorno: 1 se a posição for válida, 0 se não for válida. */
-int lista_posicao_valida(int pos)
+ * A convenção utilizada é que -1 representa o último elemento, e se a
+ * posição passada for maior do que a última posição da lista, considera-se
+ * que a posição é inválida.
+ * Retorno: 1 se a posição for válida, 0 se não for válida, ou -1 em caso
+ * de erro */
+int lista_posicao_valida(struct lista_t *lst, int pos)
 {
-    if (pos < -1)
+    if (lst == NULL)
+        return -1;
+
+    if (pos < -1 || pos >= lst->tamanho)
         return 0;
 
     return 1;
 }
 
-/* Busca o item na posição especificada no parâmetro. Se a posição for -1
- * ou maior que a ultima posição, retorna o último item.
+/* Busca o item na posição especificada no parâmetro. Se a posição for -1,
+ * retorna o último item.
  * Retorno: ponteiro p/ o item em caso de sucesso, NULL se não for encontrado
  * ou em erro. */
 struct item_t *lista_busca_posicao(struct lista_t *lst, int pos)
@@ -78,13 +82,13 @@ struct item_t *lista_busca_posicao(struct lista_t *lst, int pos)
     if (lst == NULL)
         return NULL;
 
-    if (lista_vazia(lst) || !lista_posicao_valida(pos))
+    if (lista_vazia(lst) || !lista_posicao_valida(lst, pos))
         return NULL;
 
     if (pos == 0)
         return lst->prim;
 
-    if (pos == -1 || pos >= (lst->tamanho - 1))
+    if (pos == -1 || pos == (lst->tamanho - 1))
         return lst->ult;
 
     struct item_t *atual;
@@ -152,7 +156,7 @@ int lista_insere(struct lista_t *lst, int item, int pos)
     if (lst == NULL)
         return -1;
 
-    if (!lista_posicao_valida(pos))
+    if (pos < -1)
         return -1;
 
     struct item_t *novo = item_cria(item, NULL, NULL);
@@ -220,7 +224,7 @@ int lista_retira(struct lista_t *lst, int *item, int pos)
     if (lst == NULL || item == NULL)
         return -1;
 
-    if (lista_vazia(lst) || !lista_posicao_valida(pos))
+    if (lista_vazia(lst) || !lista_posicao_valida(lst, pos))
         return -1;
 
     struct item_t *rmv = lista_busca_posicao(lst, pos);
@@ -251,15 +255,7 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
     if (lst == NULL || item == NULL)
         return -1;
 
-    if (lista_vazia(lst) || !lista_posicao_valida(pos))
-        return -1;
-
-    /* lista.h especifica que se a posição for alem do fim, deveria consultar
-     * do fim. mas fazendo dessa forma da diferença com a saída esperada.
-     * por enquanto retorna -1 para resolver isso
-     */
-
-    if (pos >= lst->tamanho)
+    if (lista_vazia(lst) || !lista_posicao_valida(lst, pos))
         return -1;
 
     struct item_t *aux = lista_busca_posicao(lst, pos);
