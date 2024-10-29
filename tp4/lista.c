@@ -29,10 +29,7 @@ struct item_t *item_cria(int valor, struct item_t *ant, struct item_t *prox)
  * Não faz nada se o ponteiro ou o item forem nulos. */
 void item_destroi(struct item_t **item)
 {
-    if (item == NULL)
-        return;
-
-    if (*item == NULL)
+    if (item == NULL || *item == NULL)
         return;
 
     free(*item);
@@ -147,10 +144,7 @@ struct lista_t *lista_destroi(struct lista_t *lst)
 
 int lista_insere(struct lista_t *lst, int item, int pos)
 {
-    if (lst == NULL)
-        return -1;
-
-    if (pos < -1)
+    if (lst == NULL || pos < -1)
         return -1;
 
     struct item_t *novo = item_cria(item, NULL, NULL);
@@ -194,12 +188,7 @@ int lista_insere(struct lista_t *lst, int item, int pos)
 
     struct item_t *pivot = lista_busca_posicao(lst, pos);
 
-    if (pivot == NULL) {
-        item_destroi(&novo);
-        return -1;
-    }
-
-    if (pivot->ant == NULL) {
+    if (pivot == NULL || pivot->ant == NULL) {
         item_destroi(&novo);
         return -1;
     }
@@ -264,10 +253,7 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
 
 int lista_procura(struct lista_t *lst, int valor)
 {
-    if (lst == NULL)
-        return -1;
-
-    if (lista_vazia(lst))
+    if (lst == NULL || lista_vazia(lst))
         return -1;
 
     struct item_t *aux = lst->prim;
@@ -281,10 +267,7 @@ int lista_procura(struct lista_t *lst, int valor)
         pos++;
     }
 
-    if (aux == NULL)
-        return -1;
-
-    if (aux->valor != valor)
+    if (aux == NULL || aux->valor != valor)
         return -1;
 
     return pos;
@@ -300,10 +283,7 @@ int lista_tamanho(struct lista_t *lst)
 
 void lista_imprime(struct lista_t *lst)
 {
-    if (lst == NULL)
-        return;
-
-    if (lista_vazia(lst))
+    if (lst == NULL || lista_vazia(lst))
         return;
 
     struct item_t *aux = lst->prim;
