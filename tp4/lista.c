@@ -5,12 +5,6 @@
 //
 // Implementação com lista encadeada dupla não-circular
 
-/* TODO
- * - modularizar o codigo, há muitos trechos repetidos
- * - inconsistencia em lista.h e make teste para a func lista_consulta()
- * - simplificar a logica de lista_insere()
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include "lista.h"
