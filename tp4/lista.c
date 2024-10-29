@@ -313,7 +313,7 @@ void lista_imprime(struct lista_t *lst)
     if (lst == NULL)
         return;
 
-    if (lst->tamanho == 0)
+    if (lista_vazia(lst))
         return;
 
     struct item_t *aux = lst->prim;
