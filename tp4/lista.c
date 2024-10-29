@@ -251,7 +251,7 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
     if (lst == NULL || item == NULL)
         return -1;
 
-    if (lst->tamanho == 0 || pos < -1)
+    if (lista_vazia(lst) || !lista_posicao_valida(pos))
         return -1;
 
     /* lista.h especifica que se a posição for alem do fim, deveria consultar
@@ -262,30 +262,10 @@ int lista_consulta(struct lista_t *lst, int *item, int pos)
     if (pos >= lst->tamanho)
         return -1;
 
-    if (pos == -1) {
-        if (lst->ult == NULL)
-            return -1;
+    struct item_t *aux = lista_busca_posicao(lst, pos);
 
-        *item = lst->ult->valor;
-
-        return lst->tamanho;
-    }
-
-    struct item_t *aux;
-
-    if (pos < (lst->tamanho / 2)) {
-        aux = lst->prim;
-
-        int i;
-        for (i = 0; i < pos; i++)
-            aux = aux->prox;
-    } else {
-        aux = lst->ult;
-
-        int i;
-        for (i = lst->tamanho - 1; i > pos; i--)
-            aux = aux->ant;
-    }
+    if (aux == NULL)
+        return -1;
 
     *item = aux->valor;
 
