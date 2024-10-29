@@ -277,7 +277,7 @@ int lista_procura(struct lista_t *lst, int valor)
     if (lst == NULL)
         return -1;
 
-    if (lst->tamanho == 0)
+    if (lista_vazia(lst))
         return -1;
 
     struct item_t *aux = lst->prim;
