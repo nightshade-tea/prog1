@@ -108,16 +108,24 @@ int fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
 
 void *fprio_retira(struct fprio_t *f, int *tipo, int *prio)
 {
-    if (f == NULL || tipo == NULL || prio == NULL)
+    if (f == NULL || tipo == NULL || prio == NULL || fprio_vazia(f))
         return NULL;
 
-    if (fprio_vazia(f) || f->prim == NULL)
+    struct fpnodo_t *aux = f->prim;
+
+    if (aux == NULL)
         return NULL;
 
-    *tipo = f->prim->tipo;
-    *prio = f->prim->prio;
+    *tipo = aux->tipo;
+    *prio = aux->prio;
+    void *item = aux->item;
 
-    return f->prim->item;
+    f->prim = aux->prox;
+    f->num--;
+
+    fpnodo_destroi(&aux);
+
+    return item;
 }
 
 int fprio_tamanho(struct fprio_t *f)
