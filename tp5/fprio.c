@@ -96,3 +96,11 @@ void *fprio_retira(struct fprio_t *f, int *tipo, int *prio)
 
     return f->prim->item;
 }
+
+int fprio_tamanho(struct fprio_t *f)
+{
+    if (f == NULL)
+        return -1;
+
+    return f->num;
+}
