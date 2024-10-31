@@ -89,7 +89,7 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
     return NULL;
 }
 
-struct fprio_t *fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
+int fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
 {
     /* TODO */
 }
