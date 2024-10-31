@@ -91,7 +91,19 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
 
 int fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
 {
-    /* TODO */
+    if (f == NULL || item == NULL)
+        return -1;
+
+    struct fpnodo_t *novo = fpnodo_cria(item, tipo, prio, NULL);
+
+    if (novo == NULL)
+        return -1;
+
+    // casos especiais ...
+
+    // caso geral ...
+
+    return ++(f->num);
 }
 
 void *fprio_retira(struct fprio_t *f, int *tipo, int *prio)
