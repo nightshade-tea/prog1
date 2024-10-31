@@ -2,8 +2,9 @@
 // Carlos Maziero, DINF/UFPR, Out 2024
 // Implementação com lista encadeada simples
 
-#include "fprio.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include "fprio.h"
 
 /* Cria um nodo com o item, tipo, prioridade e próximo especificados nos
  * parâmetros.
@@ -32,6 +33,16 @@ void fpnodo_destroi(struct fpnodo_t **nodo)
 
     free(*nodo);
     *nodo = NULL;
+}
+
+/* Imprime o tipo e a prioridade do nodo no formato "(tipo prio)", sem quebra
+ * de linha. */
+void fpnodo_imprime(struct fpnodo_t *nodo)
+{
+    if (nodo == NULL)
+        return;
+
+    printf("(%d %d)", nodo->tipo, nodo->prio);
 }
 
 /* Verifica se a fila especificada no parâmetro está vazia.
@@ -103,4 +114,24 @@ int fprio_tamanho(struct fprio_t *f)
         return -1;
 
     return f->num;
+}
+
+void fprio_imprime(struct fprio_t *f)
+{
+    if (f == NULL || fprio_vazia(f))
+        return;
+
+    struct fpnodo_t *aux = f->prim;
+
+    if (aux == NULL)
+        return;
+
+    fpnodo_imprime(aux);
+    aux = aux->prox;
+
+    while (aux != NULL) {
+        printf(" ");
+        fpnodo_imprime(aux);
+        aux = aux->prox;
+    }
 }
