@@ -5,6 +5,25 @@
 #include "fprio.h"
 #include <stdlib.h>
 
+/* Cria um nodo com o item, tipo, prioridade e próximo especificados nos
+ * parâmetros.
+ * Retorno: ponteiro p/ o novo nodo ou NULL em caso de erro. */
+struct fpnodo_t *fpnodo_cria(void *item, int tipo, int prio,
+                             struct fpnodo_t *prox)
+{
+    struct fpnodo_t *nodo = malloc(sizeof(struct fpnodo_t));
+
+    if (nodo == NULL)
+        return NULL;
+
+    nodo->item = item;
+    nodo->tipo = tipo;
+    nodo->prio = prio;
+    nodo->prox = prox;
+
+    return nodo;
+}
+
 /* Libera a memória alocada para o nodo especificado e aterra seu ponteiro. */
 void fpnodo_destroi(struct fpnodo_t **nodo)
 {
@@ -46,4 +65,9 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
     free(f);
 
     return NULL;
+}
+
+struct fprio_t *fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
+{
+    /* TODO */
 }
