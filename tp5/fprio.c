@@ -34,6 +34,17 @@ void fpnodo_destroi(struct fpnodo_t **nodo)
     *nodo = NULL;
 }
 
+/* Verifica se a fila especificada no parâmetro está vazia.
+ * Retorno: 1 se a fila estiver vazia, 0 se não estiver vazia, ou -1 caso o
+ * ponteiro passado seja nulo. */
+int fprio_vazia(struct fprio_t *f)
+{
+    if (f == NULL)
+        return -1;
+
+    return (f->num == 0);
+}
+
 struct fprio_t *fprio_cria()
 {
     struct fprio_t *f = malloc(sizeof(struct fprio_t));
@@ -70,4 +81,18 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
 struct fprio_t *fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
 {
     /* TODO */
+}
+
+void *fprio_retira(struct fprio_t *f, int *tipo, int *prio)
+{
+    if (f == NULL || tipo == NULL || prio == NULL)
+        return NULL;
+
+    if (fprio_vazia(f) || f->prim == NULL)
+        return NULL;
+
+    *tipo = f->prim->tipo;
+    *prio = f->prim->prio;
+
+    return f->prim->item;
 }
