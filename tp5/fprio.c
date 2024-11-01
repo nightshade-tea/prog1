@@ -25,16 +25,14 @@ struct fpnodo_t *fpnodo_cria(void *item, int tipo, int prio,
     return nodo;
 }
 
-/* Libera a memória alocada para o nodo especificado (inclusive seu item) e
- * aterra seu ponteiro. */
+/* Libera a memória alocada para o nodo especificado e aterra seu ponteiro.
+ * NÃO desaloca o item do nodo. */
 void fpnodo_destroi(struct fpnodo_t **nodo)
 {
     if (nodo == NULL || *nodo == NULL)
         return;
 
-    free((*nodo)->item);
     free(*nodo);
-
     *nodo = NULL;
 }
 
@@ -102,6 +100,7 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
     // desaloca todos os nodos da fila
     while (aux != NULL) {
         f->prim = aux->prox;
+        free(aux->item);
         fpnodo_destroi(&aux);
         aux = f->prim;
     }
