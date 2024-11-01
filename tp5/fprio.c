@@ -49,14 +49,34 @@ void fpnodo_imprime(struct fpnodo_t *nodo)
 }
 
 /* Verifica se a fila especificada no parâmetro está vazia.
- * Retorno: 1 se a fila estiver vazia, 0 se não estiver vazia, ou -1 caso o
- * ponteiro passado seja nulo. */
+ * Retorno: 1 se a fila estiver vazia, 0 se não estiver vazia, ou -1 em caso de
+ * erro. */
 int fprio_vazia(struct fprio_t *f)
 {
     if (f == NULL)
         return -1;
 
     return (f->num == 0);
+}
+
+/* Verifica se o item já existe em algum nodo da fila.
+ * Retorno: 1 se o item já está na fila, 0 se o item não está na fila, ou -1 em
+ * caso de erro. */
+int fprio_item_incluso(struct fprio_t *f, void *item)
+{
+    if (f == NULL || item == NULL)
+        return -1;
+
+    struct fpnodo_t *aux = f->prim;
+
+    while (aux != NULL) {
+        if (aux->item == item)
+            return 1;
+
+        aux = aux->prox;
+    }
+
+    return 0;
 }
 
 struct fprio_t *fprio_cria()
@@ -94,7 +114,7 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
 
 int fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
 {
-    if (f == NULL || item == NULL)
+    if (f == NULL || item == NULL || fprio_item_incluso(f, item))
         return -1;
 
     struct fpnodo_t *novo = fpnodo_cria(item, tipo, prio, NULL);
