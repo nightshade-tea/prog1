@@ -122,9 +122,32 @@ int fprio_insere(struct fprio_t *f, void *item, int tipo, int prio)
     if (novo == NULL)
         return -1;
 
-    // casos especiais ...
+    // inserir em uma fila vazia
+    if (fprio_vazia(f)) {
+        f->prim = novo;
+        return ++(f->num);
+    }
 
-    // caso geral ...
+    struct fpnodo_t *pivot = f->prim;
+
+    if (pivot == NULL) {
+        fpnodo_destroi(&novo);
+        return -1;
+    }
+
+    // inserir no início
+    if (novo->prio < pivot->prio) {
+        f->prim = novo;
+        novo->prox = pivot;
+        return ++(f->num);
+    }
+
+    // caso geral
+    while (pivot->prox != NULL && novo->prio >= pivot->prox->prio)
+        pivot = pivot->prox;
+
+    novo->prox = pivot->prox;
+    pivot->prox = novo;
 
     return ++(f->num);
 }
