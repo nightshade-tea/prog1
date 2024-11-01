@@ -36,6 +36,16 @@ void fpnodo_destroi(struct fpnodo_t **nodo)
     *nodo = NULL;
 }
 
+/* Libera a memória alocada para o item do nodo e aterra seu ponteiro. */
+void fpnodo_destroi_item(struct fpnodo_t *nodo)
+{
+    if (nodo == NULL || nodo->item == NULL)
+        return;
+
+    free(nodo->item);
+    nodo->item = NULL;
+}
+
 /* Imprime o tipo e a prioridade do nodo no formato "(tipo prio)", sem quebra
  * de linha. */
 void fpnodo_imprime(struct fpnodo_t *nodo)
@@ -97,11 +107,13 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
 
     struct fpnodo_t *aux = f->prim;
 
-    // desaloca todos os nodos da fila
+    // desaloca todos os nodos da fila (inclusive seus itens)
     while (aux != NULL) {
         f->prim = aux->prox;
-        free(aux->item);
+
+        fpnodo_destroi_item(aux);
         fpnodo_destroi(&aux);
+
         aux = f->prim;
     }
 
