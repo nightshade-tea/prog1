@@ -25,13 +25,16 @@ struct fpnodo_t *fpnodo_cria(void *item, int tipo, int prio,
     return nodo;
 }
 
-/* Libera a memória alocada para o nodo especificado e aterra seu ponteiro. */
+/* Libera a memória alocada para o nodo especificado (inclusive seu item) e
+ * aterra seu ponteiro. */
 void fpnodo_destroi(struct fpnodo_t **nodo)
 {
     if (nodo == NULL || *nodo == NULL)
         return;
 
+    free((*nodo)->item);
     free(*nodo);
+
     *nodo = NULL;
 }
 
