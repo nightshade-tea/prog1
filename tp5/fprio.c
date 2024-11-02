@@ -107,7 +107,6 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
 
     struct fpnodo_t *aux = f->prim;
 
-    // desaloca todos os nodos da fila (inclusive seus itens)
     while (aux != NULL) {
         f->prim = aux->prox;
 
@@ -117,7 +116,6 @@ struct fprio_t *fprio_destroi(struct fprio_t *f)
         aux = f->prim;
     }
 
-    // desaloca a fila
     free(f);
 
     return NULL;
