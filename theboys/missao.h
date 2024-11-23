@@ -2,6 +2,7 @@
 #define MISSAO
 
 #include "conjunto.h"
+#include "ponto.h"
 
 #define M_MIN_HABILIDADES 6
 #define M_MAX_HABILIDADES 10
