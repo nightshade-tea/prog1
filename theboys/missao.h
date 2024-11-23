@@ -13,7 +13,7 @@ struct missao_t {
     int id;
     struct cjto_t *habilidades;
     int perigo;
-    // ponto (local)
+    struct ponto_t *local;
 };
 
 struct missao_t *missao_cria(int id);

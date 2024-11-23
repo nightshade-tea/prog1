@@ -11,7 +11,7 @@ struct base_t {
     int lotacao;
     struct cjto_t *presentes;
     // fila (de espera)
-    // ponto (local)
+    struct ponto_t *local;
 };
 
 struct base_t *base_cria(int id);
