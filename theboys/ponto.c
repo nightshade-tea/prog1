@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include "ponto.h"
 
 struct ponto_t *ponto_cria(int x, int y)
 {
