@@ -15,9 +15,9 @@
 #define N_MISSOES (T_FIM_DO_MUNDO / 100)
 
 struct mundo_t {
-    struct **heroi_t herois;
-    struct **base_t bases;
-    struct **missao_t missoes;
+    struct heroi_t **herois;
+    struct base_t **bases;
+    struct missao_t **missoes;
     int relogio;
 };
 
