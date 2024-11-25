@@ -4,33 +4,33 @@
 
 struct ponto_t *ponto_cria(int x, int y)
 {
-    struct ponto_t *ponto = malloc(sizeof(struct ponto_t));
+    struct ponto_t *p = malloc(sizeof(struct ponto_t));
 
-    if (ponto == NULL)
+    if (p == NULL)
         return NULL;
 
-    ponto->x = x;
-    ponto->y = y;
+    p->x = x;
+    p->y = y;
 
-    return ponto;
+    return p;
 }
 
-void ponto_destroi(struct ponto_t **ponto)
+void ponto_destroi(struct ponto_t **p)
 {
-    if (ponto == NULL || *ponto == NULL)
+    if (p == NULL || *p == NULL)
         return;
 
-    free(*ponto);
-    *ponto = NULL;
+    free(*p);
+    *p = NULL;
 }
 
-int ponto_distancia(struct ponto_t *P, struct ponto_t *Q)
+int ponto_distancia(struct ponto_t *p, struct ponto_t *q)
 {
-    if (P == NULL || Q == NULL)
+    if (p == NULL || q == NULL)
         return -1;
 
-    int dx = P->x - Q->x;
-    int dy = P->y - Q->y;
+    int dx = p->x - q->x;
+    int dy = p->y - q->y;
 
     return round(hypot(dx, dy));
 }
