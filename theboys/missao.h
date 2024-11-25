@@ -12,13 +12,13 @@
 
 struct missao_t {
     int id;
-    struct cjto_t *habilidades;
-    int perigo;
-    struct ponto_t *local;
+    struct cjto_t *habs;
+    int per;
+    struct ponto_t *loc;
 };
 
 struct missao_t *missao_cria(int id);
 
-void missao_destroi(struct missao_t **missao);
+void missao_destroi(struct missao_t **m);
 
 #endif
