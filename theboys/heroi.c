@@ -3,36 +3,36 @@
 #include "common.h"
 #include "heroi.h"
 
-void heroi_destroi(struct heroi_t **heroi)
+void heroi_destroi(struct heroi_t **h)
 {
-    if (heroi == NULL || *heroi == NULL)
+    if (h == NULL || *h == NULL)
         return;
 
-    (*heroi)->habilidades = cjto_destroi((*heroi)->habilidades);
+    (*h)->habs = cjto_destroi((*h)->habs);
 
-    free(*heroi);
-    *heroi = NULL;
+    free(*h);
+    *h = NULL;
 }
 
 struct heroi_t *heroi_cria(int id, int base)
 {
-    struct heroi_t *heroi = malloc(sizeof(struct heroi_t));
+    struct heroi_t *h = malloc(sizeof(struct heroi_t));
 
-    if (heroi == NULL)
+    if (h == NULL)
         return NULL;
 
-    heroi->habilidades = cjto_cria(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES));
+    h->habs = cjto_cria(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES));
 
-    if (heroi->habilidades == NULL) {
-        heroi_destroi(&heroi);
+    if (h->habs == NULL) {
+        heroi_destroi(&h);
         return NULL;
     }
 
-    heroi->id = id;
-    heroi->base = base;
-    heroi->experiencia = H_EXPERIENCIA_INICIAL;
-    heroi->paciencia = aleat(H_MIN_PACIENCIA, H_MAX_PACIENCIA);
-    heroi->velocidade = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
+    h->id = id;
+    h->base = base;
+    h->exp = H_EXPERIENCIA_INICIAL;
+    h->pac = aleat(H_MIN_PACIENCIA, H_MAX_PACIENCIA);
+    h->vel = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
 
-    return heroi;
+    return h;
 }

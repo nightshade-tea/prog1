@@ -16,15 +16,15 @@
 
 struct heroi_t {
     int id;
-    struct cjto_t *habilidades;
-    int paciencia;
-    int velocidade;
-    int experiencia;
+    struct cjto_t *habs;
+    int pac;
+    int vel;
+    int exp;
     int base;
 };
 
 struct heroi_t *heroi_cria(int id, int base);
 
-void heroi_destroi(struct heroi_t **heroi);
+void heroi_destroi(struct heroi_t **h);
 
 #endif
