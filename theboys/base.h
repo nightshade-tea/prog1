@@ -10,14 +10,14 @@
 
 struct base_t {
     int id;
-    int lotacao;
-    struct cjto_t *presentes;
-    struct fila_t *espera;
-    struct ponto_t *local;
+    int lot;
+    struct cjto_t *pres;
+    struct fila_t *esp;
+    struct ponto_t *loc;
 };
 
 struct base_t *base_cria(int id);
 
-void base_destroi(struct base_t **base);
+void base_destroi(struct base_t **b);
 
 #endif
