@@ -3,49 +3,49 @@
 
 struct fnodo_t *fnodo_cria(void *item, struct fnodo_t *prox)
 {
-    struct fnodo_t *nodo = malloc(sizeof(struct fnodo_t));
+    struct fnodo_t *n = malloc(sizeof(struct fnodo_t));
 
-    if (nodo == NULL)
+    if (n == NULL)
         return NULL;
 
-    nodo->item = item;
-    nodo->prox = prox;
+    n->item = item;
+    n->prox = prox;
 
-    return nodo;
+    return n;
 }
 
-void fnodo_destroi(struct fnodo_t **nodo)
+void fnodo_destroi(struct fnodo_t **n)
 {
-    if (nodo == NULL || *nodo == NULL)
+    if (n == NULL || *n == NULL)
         return;
 
-    free(*nodo);
-    *nodo = NULL;
+    free(*n);
+    *n = NULL;
 }
 
-void fnodo_destroi_item(struct fnodo_t *nodo)
+void fnodo_destroi_item(struct fnodo_t *n)
 {
-    if (nodo == NULL || nodo->item == NULL)
+    if (n == NULL || n->item == NULL)
         return;
 
-    free(nodo->item);
-    nodo->item = NULL;
+    free(n->item);
+    n->item = NULL;
 }
 
-int fila_vazia(struct fila_t *fila)
+int fila_vazia(struct fila_t *f)
 {
-    if (fila == NULL)
+    if (f == NULL)
         return -1;
 
-    return (fila->num == 0);
+    return (f->num == 0);
 }
 
-int fila_item_incluso(struct fila_t *fila, void *item)
+int fila_item_incluso(struct fila_t *f, void *item)
 {
-    if (fila == NULL || item == NULL)
+    if (f == NULL || item == NULL)
         return -1;
 
-    struct fnodo_t *aux = fila->prim;
+    struct fnodo_t *aux = f->prim;
 
     while (aux != NULL) {
         if (aux->item == item)
@@ -59,40 +59,40 @@ int fila_item_incluso(struct fila_t *fila, void *item)
 
 struct fila_t *fila_cria()
 {
-    struct fila_t *fila = malloc(sizeof(struct fila_t));
+    struct fila_t *f = malloc(sizeof(struct fila_t));
 
-    if (fila == NULL)
+    if (f == NULL)
         return NULL;
 
-    fila->prim = fila->ult = NULL;
-    fila->num = 0;
+    f->prim = f->ult = NULL;
+    f->num = 0;
 
-    return fila;
+    return f;
 }
 
-void fila_destroi(struct fila_t **fila)
+void fila_destroi(struct fila_t **f)
 {
-    if (fila == NULL || *fila == NULL)
+    if (f == NULL || *f == NULL)
         return;
 
-    struct fnodo_t *aux = (*fila)->prim;
+    struct fnodo_t *aux = (*f)->prim;
 
     while (aux != NULL) {
-        (*fila)->prim = aux->prox;
+        (*f)->prim = aux->prox;
 
         fnodo_destroi_item(aux);
         fnodo_destroi(&aux);
 
-        aux = (*fila)->prim;
+        aux = (*f)->prim;
     }
 
-    free(*fila);
-    *fila = NULL;
+    free(*f);
+    *f = NULL;
 }
 
-int fila_insere(struct fila_t *fila, void *item)
+int fila_insere(struct fila_t *f, void *item)
 {
-    if (fila == NULL || item == NULL || fila_item_incluso(fila, item))
+    if (f == NULL || item == NULL || fila_item_incluso(f, item))
         return -1;
 
     struct fnodo_t *novo = fnodo_cria(item, NULL);
@@ -100,29 +100,29 @@ int fila_insere(struct fila_t *fila, void *item)
     if (novo == NULL)
         return -1;
 
-    if (fila->ult != NULL)
-        fila->ult->prox = novo;
+    if (f->ult != NULL)
+        f->ult->prox = novo;
 
-    if (fila_vazia(fila))
-        fila->prim = novo;
+    if (fila_vazia(f))
+        f->prim = novo;
 
-    fila->ult = novo;
+    f->ult = novo;
 
-    return ++(fila->num);
+    return ++(f->num);
 }
 
-void *fila_retira(struct fila_t *fila)
+void *fila_retira(struct fila_t *f)
 {
-    if (fila == NULL || fila->prim == NULL)
+    if (f == NULL || f->prim == NULL)
         return NULL;
 
-    struct fnodo_t *aux = fila->prim;
+    struct fnodo_t *aux = f->prim;
 
-    if (fila->ult == aux)
-        fila->ult = NULL;
+    if (f->ult == aux)
+        f->ult = NULL;
 
-    fila->prim = aux->prox;
-    fila->num--;
+    f->prim = aux->prox;
+    f->num--;
 
     void *item = aux->item;
     fnodo_destroi(&aux);
@@ -130,10 +130,10 @@ void *fila_retira(struct fila_t *fila)
     return item;
 }
 
-int fila_tamanho(struct fila_t *fila)
+int fila_tamanho(struct fila_t *f)
 {
-    if (fila == NULL)
+    if (f == NULL)
         return -1;
 
-    return fila->num;
+    return f->num;
 }

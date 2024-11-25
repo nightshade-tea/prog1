@@ -14,12 +14,12 @@ struct fila_t {
 
 struct fila_t *fila_cria();
 
-void fila_destroi(struct fila_t **fila);
+void fila_destroi(struct fila_t **f);
 
-int fila_insere(struct fila_t *fila, void *item);
+int fila_insere(struct fila_t *f, void *item);
 
-void *fila_retira(struct fila_t *fila);
+void *fila_retira(struct fila_t *f);
 
-int fila_tamanho(struct fila_t *fila);
+int fila_tamanho(struct fila_t *f);
 
 #endif
