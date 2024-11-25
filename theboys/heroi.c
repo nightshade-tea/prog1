@@ -3,6 +3,17 @@
 #include "common.h"
 #include "heroi.h"
 
+void heroi_destroi(struct heroi_t **heroi)
+{
+    if (heroi == NULL || *heroi == NULL)
+        return;
+
+    (*heroi)->habilidades = cjto_destroi((*heroi)->habilidades);
+
+    free(*heroi);
+    *heroi = NULL;
+}
+
 struct heroi_t *heroi_cria(int id, int base)
 {
     struct heroi_t *heroi = malloc(sizeof(struct heroi_t));
@@ -13,7 +24,7 @@ struct heroi_t *heroi_cria(int id, int base)
     heroi->habilidades = cjto_cria(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES));
 
     if (heroi->habilidades == NULL) {
-        free(heroi);
+        heroi_destroi(&heroi);
         return NULL;
     }
 
@@ -24,15 +35,4 @@ struct heroi_t *heroi_cria(int id, int base)
     heroi->velocidade = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
 
     return heroi;
-}
-
-void heroi_destroi(struct heroi_t **heroi)
-{
-    if (heroi == NULL || *heroi == NULL)
-        return;
-
-    (*heroi)->habilidades = cjto_destroi((*heroi)->habilidades);
-
-    free(*heroi);
-    *heroi = NULL;
 }
