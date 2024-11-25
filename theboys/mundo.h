@@ -18,11 +18,11 @@ struct mundo_t {
     struct heroi_t **herois;
     struct base_t **bases;
     struct missao_t **missoes;
-    int relogio;
+    int clk;
 };
 
 struct mundo_t *mundo_cria();
 
-void mundo_destroi(struct mundo_t **mundo);
+void mundo_destroi(struct mundo_t **m);
 
 #endif
