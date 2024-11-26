@@ -17,6 +17,26 @@ void vh_destroi(struct heroi_t ***vh)
     *vh = NULL;
 }
 
+struct heroi_t **vh_cria()
+{
+    struct heroi_t **vh = malloc(N_HEROIS * sizeof(struct heroi_t *));
+
+    if (vh == NULL)
+        return NULL;
+
+    int i;
+    for (i = 0; i < N_HEROIS; i++) {
+        vh[i] = heroi_cria(i, -1);
+
+        if (vh[i] == NULL) {
+            vh_destroi(&vh);
+            return NULL;
+        }
+    }
+
+    return vh;
+}
+
 void vb_destroi(struct base_t ***vb)
 {
     if (vb == NULL || *vb == NULL)
@@ -30,6 +50,26 @@ void vb_destroi(struct base_t ***vb)
     *vb = NULL;
 }
 
+struct base_t **vb_cria()
+{
+    struct base_t **vb = malloc(N_BASES * sizeof(struct base_t *));
+
+    if (vb == NULL)
+        return NULL;
+
+    int i;
+    for (i = 0; i < N_BASES; i++) {
+        vb[i] = base_cria(i);
+
+        if (vb[i] == NULL) {
+            vb_destroi(&vb);
+            return NULL;
+        }
+    }
+
+    return vb;
+}
+
 void vm_destroi(struct missao_t ***vm)
 {
     if (vm == NULL || *vm == NULL)
@@ -41,6 +81,26 @@ void vm_destroi(struct missao_t ***vm)
 
     free(*vm);
     *vm = NULL;
+}
+
+struct missao_t **vm_cria()
+{
+    struct missao_t **vm = malloc(N_MISSOES * sizeof(struct missao_t *));
+
+    if (vm == NULL)
+        return NULL;
+
+    int i;
+    for (i = 0; i < N_MISSOES; i++) {
+        vm[i] = missao_cria(i);
+
+        if (vm[i] == NULL) {
+            vm_destroi(&vm);
+            return NULL;
+        }
+    }
+
+    return vm;
 }
 
 void mundo_destroi(struct mundo_t **w)
@@ -58,5 +118,20 @@ void mundo_destroi(struct mundo_t **w)
 
 struct mundo_t *mundo_cria()
 {
-    // TODO
+    struct mundo_t *w = malloc(sizeof(struct mundo_t));
+
+    if (w == NULL)
+        return NULL;
+
+    w->herois = vh_cria();
+    w->bases = vb_cria();
+    w->missoes = vm_cria();
+    w->clk = T_INICIO;
+
+    if (w->herois == NULL || w->bases == NULL || w->missoes == NULL) {
+        mundo_destroi(&w);
+        return NULL;
+    }
+
+    return w;
 }
