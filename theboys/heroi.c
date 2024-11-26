@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "conjunto.h"
 #include "common.h"
+#include "mundo.h"
 #include "heroi.h"
 
 void heroi_destroi(struct heroi_t **h)
@@ -21,7 +22,8 @@ struct heroi_t *heroi_cria(int id, int base)
     if (h == NULL)
         return NULL;
 
-    h->habs = cjto_cria(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES));
+    h->habs = cjto_aleat(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES),
+                         N_HABILIDADES);
 
     if (h->habs == NULL) {
         heroi_destroi(&h);
