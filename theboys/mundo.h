@@ -23,6 +23,6 @@ struct mundo_t {
 
 struct mundo_t *mundo_cria();
 
-void mundo_destroi(struct mundo_t **m);
+void mundo_destroi(struct mundo_t **w);
 
 #endif
