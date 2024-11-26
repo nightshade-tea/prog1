@@ -1,9 +1,10 @@
 #ifndef EVENTOS
 #define EVENTOS
 
+#include "missao.h"
+#include "fprio.h"
 #include "heroi.h"
 #include "base.h"
-#include "missao.h"
 
 #define EV_CHEGA 0
 #define EV_ESPERA 1
@@ -16,15 +17,15 @@
 #define EV_MISSAO 8
 #define EV_FIM 9
 
-void chega(struct heroi_t *h, struct base_t *b);
-void espera(struct heroi_t *h, struct base_t *b);
-void desiste(struct heroi_t *h, struct base_t *b);
-void avisa(struct base_t *b);
-void entra(struct heroi_t *h, struct base_t *b);
-void sai(struct heroi_t *h, struct base_t *b);
-void viaja(struct heroi_t *h, struct base_t *b);
-void morre(struct heroi_t *h, struct base_t *b);
-void missao(struct missao_t *m);
+void chega(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void espera(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void desiste(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void avisa(struct fprio_t *lef, struct base_t *b);
+void entra(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void sai(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void viaja(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void morre(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
+void missao(struct fprio_t *lef, struct missao_t *m);
 void fim();
 
 #endif
