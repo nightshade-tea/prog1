@@ -146,12 +146,18 @@ int main()
         case EV_MISSAO:
             missao(lef, p->m);
             break;
+        case EV_FIM:
+            fim();
+            break;
         default:
             erro("EVENTO INVALIDO");
         }
+
+        params_destroi(&p);
     } while (ev != EV_FIM);
 
-    fim();
+    mundo_destroi(&w);
+    lef = fprio_destroi(lef);
 
     return 0;
 }
