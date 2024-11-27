@@ -105,7 +105,7 @@ int main()
             entra(w->clk, p->h, p->b, lef);
             break;
         case EV_SAI:
-            sai(w->clk, p->h, p->b, lef);
+            sai(w->clk, p->h, p->b, lef, w);
             break;
         case EV_VIAJA:
             viaja(w->clk, p->h, p->b, lef);
