@@ -64,6 +64,20 @@ void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
 
 void avisa(int t, struct base_t *b, struct fprio_t *lef)
 {
+    if (b == NULL || lef == NULL)
+        return;
+
+    while (cjto_card(b->pres) < b->lot && fila_tamanho(b->esp) > 0) {
+        struct heroi_t *h = fila_retira(b->esp);
+        struct params_t *p = params_cria(h, b, NULL);
+
+        if (h != NULL && p != NULL) {
+            cjto_insere(b->pres, h->id);
+            fprio_insere(lef, p, EV_ENTRA, t);
+        } else {
+            params_destroi(&p);
+        }
+    }
 }
 
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
