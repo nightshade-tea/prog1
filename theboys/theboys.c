@@ -96,7 +96,7 @@ int main()
             espera(w->clk, p->h, p->b, lef);
             break;
         case EV_DESISTE:
-            desiste(w->clk, p->h, p->b, lef);
+            desiste(w->clk, p->h, p->b, lef, w);
             break;
         case EV_AVISA:
             avisa(w->clk, p->b, lef);

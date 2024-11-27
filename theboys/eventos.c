@@ -3,6 +3,7 @@
 #include "eventos.h"
 #include "common.h"
 #include "missao.h"
+#include "mundo.h"
 #include "fprio.h"
 #include "heroi.h"
 #include "base.h"
@@ -47,8 +48,18 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     fprio_insere(lef, p, EV_AVISA, t);
 }
 
-void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
+void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+             struct mundo_t *w)
 {
+    if (h == NULL || b == NULL || lef == NULL)
+        return;
+
+    struct params_t *p = params_cria(h, w->bases[aleat(0, N_BASES - 1)], NULL);
+
+    if (p == NULL)
+        return;
+
+    fprio_insere(lef, p, EV_VIAJA, t);
 }
 
 void avisa(int t, struct base_t *b, struct fprio_t *lef)

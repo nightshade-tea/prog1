@@ -19,7 +19,9 @@
 
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
-void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+             struct mundo_t *w);
+
 void avisa(int t, struct base_t *b, struct fprio_t *lef);
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
