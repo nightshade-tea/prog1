@@ -27,7 +27,9 @@ void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
          struct mundo_t *w);
 
-void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+           struct mundo_t *w);
+
 void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void missao(int t, struct missao_t *m, struct fprio_t *lef);
 void fim(int t);

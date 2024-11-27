@@ -4,6 +4,7 @@
 #include "common.h"
 #include "missao.h"
 #include "mundo.h"
+#include "ponto.h"
 #include "fprio.h"
 #include "heroi.h"
 #include "base.h"
@@ -116,8 +117,21 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     fprio_insere(lef, pa, EV_AVISA, t);
 }
 
-void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
+void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+           struct mundo_t *w)
 {
+    if (h == NULL || b == NULL || lef == NULL || w == NULL)
+        return;
+
+    struct params_t *p = params_cria(h, b, NULL);
+
+    if (p == NULL)
+        return;
+
+    int ds = ponto_distancia(w->bases[h->base], b);
+    int dt = ds / h->vel;
+
+    fprio_insere(lef, p, EV_CHEGA, t + dt);
 }
 
 void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
