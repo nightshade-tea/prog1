@@ -82,6 +82,17 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
 
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
+    if (h == NULL || b == NULL || lef == NULL)
+        return;
+
+    struct params_t *p = params_cria(h, b, NULL);
+
+    if (p == NULL)
+        return;
+
+    int tpb = 15 + (h->pac * aleat(1, 20));
+
+    fprio_insere(lef, p, EV_SAI, t + tpb);
 }
 
 void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
