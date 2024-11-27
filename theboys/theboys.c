@@ -8,36 +8,6 @@
 #include "base.h"
 #include "fila.h"
 
-struct params_t {
-    struct heroi_t *h;
-    struct base_t *b;
-    struct missao_t *m;
-};
-
-struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
-                             struct missao_t *m)
-{
-    struct params_t *p = malloc(sizeof(struct params_t));
-
-    if (p == NULL)
-        return NULL;
-
-    p->h = h;
-    p->b = b;
-    p->m = m;
-
-    return p;
-}
-
-void params_destroi(struct params_t **p)
-{
-    if (p == NULL || *p == NULL)
-        return;
-
-    free(*p);
-    *p = NULL;
-}
-
 int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
 {
     if (lef == NULL || w == NULL || w->herois == NULL || w->bases == NULL)
