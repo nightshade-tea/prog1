@@ -120,34 +120,34 @@ int main()
 
         switch (ev) {
         case EV_CHEGA:
-            chega(lef, p->h, p->b);
+            chega(w->clk, p->h, p->b, lef);
             break;
         case EV_ESPERA:
-            espera(lef, p->h, p->b);
+            espera(w->clk, p->h, p->b, lef);
             break;
         case EV_DESISTE:
-            desiste(lef, p->h, p->b);
+            desiste(w->clk, p->h, p->b, lef);
             break;
         case EV_AVISA:
-            avisa(lef, p->b);
+            avisa(w->clk, p->b, lef);
             break;
         case EV_ENTRA:
-            entra(lef, p->h, p->b);
+            entra(w->clk, p->h, p->b, lef);
             break;
         case EV_SAI:
-            sai(lef, p->h, p->b);
+            sai(w->clk, p->h, p->b, lef);
             break;
         case EV_VIAJA:
-            viaja(lef, p->h, p->b);
+            viaja(w->clk, p->h, p->b, lef);
             break;
         case EV_MORRE:
-            morre(lef, p->h, p->b);
+            morre(w->clk, p->h, p->b, lef);
             break;
         case EV_MISSAO:
-            missao(lef, p->m);
+            missao(w->clk, p->m, lef);
             break;
         case EV_FIM:
-            fim();
+            fim(w->clk);
             break;
         default:
             erro("EVENTO INVALIDO");

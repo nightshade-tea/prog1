@@ -17,15 +17,15 @@
 #define EV_MISSAO 8
 #define EV_FIM 9
 
-void chega(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void espera(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void desiste(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void avisa(struct fprio_t *lef, struct base_t *b);
-void entra(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void sai(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void viaja(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void morre(struct fprio_t *lef, struct heroi_t *h, struct base_t *b);
-void missao(struct fprio_t *lef, struct missao_t *m);
-void fim();
+void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void avisa(int t, struct base_t *b, struct fprio_t *lef);
+void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+void missao(int t, struct missao_t *m, struct fprio_t *lef);
+void fim(int t);
 
 #endif
