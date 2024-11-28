@@ -2,6 +2,7 @@
 #define EVENTOS
 
 #include "missao.h"
+#include "mundo.h"
 #include "fprio.h"
 #include "heroi.h"
 #include "base.h"
