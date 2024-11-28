@@ -33,4 +33,6 @@ struct missao_t *mundo_missao(struct mundo_t *w, int id);
 
 int mundo_relogio(struct mundo_t *w);
 
+void mundo_atualiza_relogio(struct mundo_t *w, int t);
+
 #endif

@@ -167,3 +167,11 @@ int mundo_relogio(struct mundo_t *w)
 
     return w->clk;
 }
+
+void mundo_atualiza_relogio(struct mundo_t *w, int t)
+{
+    if (w == NULL || t < 0)
+        return;
+
+    w->clk = t;
+}
