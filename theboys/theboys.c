@@ -10,7 +10,7 @@
 
 int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
 {
-    if (lef == NULL || w == NULL || w->herois == NULL || w->bases == NULL)
+    if (lef == NULL || w == NULL)
         return -1;
 
     int i;
@@ -18,7 +18,7 @@ int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
         int b = aleat(0, N_BASES - 1);
         int t = aleat(0, 4320); // 4320 = 3 dias
 
-        struct params_t *p = params_cria(w->herois[i], w->bases[b], NULL);
+        struct params_t *p = params_cria(mundo_heroi(w, i), mundo_base(w, b), NULL);
 
         if (p == NULL || fprio_insere(lef, p, EV_CHEGA, t) == -1)
             return -1;
@@ -29,14 +29,14 @@ int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
 
 int agendar_missoes(struct mundo_t *w, struct fprio_t *lef)
 {
-    if (lef == NULL || w == NULL || w->missoes == NULL)
+    if (lef == NULL || w == NULL)
         return -1;
 
     int i;
     for (i = 0; i < N_MISSOES; i++) {
         int t = aleat(0, T_FIM_DO_MUNDO);
 
-        struct params_t *p = params_cria(NULL, NULL, w->missoes[i]);
+        struct params_t *p = params_cria(NULL, NULL, mundo_missao(w, i));
 
         if (p == NULL || fprio_insere(lef, p, EV_MISSAO, t) == -1)
             return -1;
