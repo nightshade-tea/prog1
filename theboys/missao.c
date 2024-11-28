@@ -40,3 +40,35 @@ struct missao_t *missao_cria(int id)
 
     return m;
 }
+
+int missao_id(struct missao_t *m)
+{
+    if (m == NULL)
+        return -1;
+
+    return m->id;
+}
+
+struct cjto_t *missao_habilidades(struct missao_t *m)
+{
+    if (m == NULL)
+        return NULL;
+
+    return m->habs;
+}
+
+int missao_perigo(struct missao_t *m)
+{
+    if (m == NULL)
+        return -1;
+
+    return m->per;
+}
+
+struct ponto_t *missao_local(struct missao_t *m)
+{
+    if (m == NULL)
+        return NULL;
+
+    return m->loc;
+}

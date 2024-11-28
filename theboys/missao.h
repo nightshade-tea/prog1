@@ -21,4 +21,12 @@ struct missao_t *missao_cria(int id);
 
 void missao_destroi(struct missao_t **m);
 
+int missao_id(struct missao_t *m);
+
+struct cjto_t *missao_habilidades(struct missao_t *m);
+
+int missao_perigo(struct missao_t *m);
+
+struct ponto_t *missao_local(struct missao_t *m);
+
 #endif
