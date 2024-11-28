@@ -4,6 +4,7 @@
 #include "common.h"
 #include "mundo.h"
 #include "heroi.h"
+#include "base.h"
 
 void heroi_destroi(struct heroi_t **h)
 {
@@ -39,6 +40,14 @@ struct heroi_t *heroi_cria(int id, int base)
     h->morto = 0;
 
     return h;
+}
+
+void heroi_chega(struct heroi_t *h, struct base_t *b)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    h->base = base_id(b);
 }
 
 void heroi_morre(struct heroi_t *h)

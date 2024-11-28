@@ -43,6 +43,14 @@ struct base_t *base_cria(int id)
     return b;
 }
 
+int base_id(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    return b->id;
+}
+
 int base_lotada(struct base_t *b)
 {
     if (b == NULL)

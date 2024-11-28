@@ -2,6 +2,7 @@
 #define HEROI
 
 #include "conjunto.h"
+#include "base.h"
 
 #define H_MIN_PACIENCIA 0
 #define H_MAX_PACIENCIA 100
@@ -27,6 +28,8 @@ struct heroi_t {
 struct heroi_t *heroi_cria(int id, int base);
 
 void heroi_destroi(struct heroi_t **h);
+
+void heroi_chega(struct heroi_t *h, struct base_t *b);
 
 void heroi_morre(struct heroi_t *h);
 
