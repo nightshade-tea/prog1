@@ -152,8 +152,13 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 
 void missao(int t, struct missao_t *m, struct fprio_t *lef)
 {
+    if (m == NULL || lef == NULL)
+        return;
+
+    // TODO
 }
 
 void fim(int t)
 {
+    // TODO
 }
