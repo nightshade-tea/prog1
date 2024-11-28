@@ -21,10 +21,15 @@ struct heroi_t {
     int vel;
     int exp;
     int base;
+    int morto;
 };
 
 struct heroi_t *heroi_cria(int id, int base);
 
 void heroi_destroi(struct heroi_t **h);
+
+void heroi_morre(struct heroi_t *h);
+
+int heroi_morto(struct heroi_t *h);
 
 #endif

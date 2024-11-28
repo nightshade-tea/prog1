@@ -35,6 +35,23 @@ struct heroi_t *heroi_cria(int id, int base)
     h->exp = H_EXPERIENCIA_INICIAL;
     h->pac = aleat(H_MIN_PACIENCIA, H_MAX_PACIENCIA);
     h->vel = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
+    h->morto = 0;
 
     return h;
+}
+
+void heroi_morre(struct heroi_t *h)
+{
+    if (h == NULL)
+        return;
+
+    h->morto = 1;
+}
+
+int heroi_morto(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->morto;
 }
