@@ -82,11 +82,14 @@ int main()
         erro("ERRO EM agendar_fim()");
 
     int ev;
+    int clk;
     do {
-        struct params_t *p = fprio_retira(lef, &ev, &(w->clk));
+        struct params_t *p = fprio_retira(lef, &ev, &clk);
 
         if (p == NULL)
             erro("FALHA AO RETIRAR EVENTO DA LEF");
+
+        mundo_atualiza_relogio(w, clk);
 
         switch (ev) {
         case EV_CHEGA:
