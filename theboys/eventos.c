@@ -34,6 +34,30 @@ void params_destroi(struct params_t **p)
     *p = NULL;
 }
 
+struct heroi_t *params_heroi(struct params_t *p)
+{
+    if (p == NULL)
+        return NULL;
+
+    return p->h;
+}
+
+struct base_t *params_base(struct params_t *p)
+{
+    if (p == NULL)
+        return NULL;
+
+    return p->b;
+}
+
+struct missao_t *params_missao(struct params_t *p)
+{
+    if (p == NULL)
+        return NULL;
+
+    return p->m;
+}
+
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
