@@ -18,7 +18,7 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     h->base = b->id;
 
     int espera;
-    if (cjto_card(b->pres) < b->lot && fila_tamanho(b->esp) == 0)
+    if (!base_lotada(b) && fila_tamanho(b->esp) == 0)
         espera = 1;
     else
         espera = (h->pac) > (10 * fila_tamanho(b->esp));
@@ -68,7 +68,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
     if (b == NULL || lef == NULL)
         return;
 
-    while (cjto_card(b->pres) < b->lot && fila_tamanho(b->esp) > 0) {
+    while (!base_lotada(b) && fila_tamanho(b->esp) > 0) {
         struct heroi_t *h = fila_retira(b->esp);
         struct params_t *p = params_cria(h, b, NULL);
 
