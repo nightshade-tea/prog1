@@ -128,7 +128,7 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (p == NULL)
         return;
 
-    int ds = ponto_distancia(w->bases[h->base], b);
+    int ds = ponto_distancia(w->bases[h->base]->loc, b->loc);
     int dt = ds / h->vel;
 
     fprio_insere(lef, p, EV_CHEGA, t + dt);
