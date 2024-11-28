@@ -135,3 +135,35 @@ struct mundo_t *mundo_cria()
 
     return w;
 }
+
+struct heroi_t *mundo_heroi(struct mundo_t *w, int id)
+{
+    if (w == NULL || w->herois == NULL || id < 0 || id >= N_HEROIS)
+        return NULL;
+
+    return w->herois[id];
+}
+
+struct base_t *mundo_base(struct mundo_t *w, int id)
+{
+    if (w == NULL || w->bases == NULL || id < 0 || id >= N_BASES)
+        return NULL;
+
+    return w->bases[id];
+}
+
+struct missao_t *mundo_missao(struct mundo_t *w, int id)
+{
+    if (w == NULL || w->missoes == NULL || id < 0 || id >= N_MISSOES)
+        return NULL;
+
+    return w->missoes[id];
+}
+
+int mundo_relogio(struct mundo_t *w)
+{
+    if (w == NULL)
+        return -1;
+
+    return w->clk;
+}

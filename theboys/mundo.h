@@ -25,4 +25,12 @@ struct mundo_t *mundo_cria();
 
 void mundo_destroi(struct mundo_t **w);
 
+struct heroi_t *mundo_heroi(struct mundo_t *w, int id);
+
+struct base_t *mundo_base(struct mundo_t *w, int id);
+
+struct missao_t *mundo_missao(struct mundo_t *w, int id);
+
+int mundo_relogio(struct mundo_t *w);
+
 #endif
