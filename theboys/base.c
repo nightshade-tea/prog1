@@ -51,6 +51,38 @@ int base_id(struct base_t *b)
     return b->id;
 }
 
+int base_lotacao(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    return b->lot;
+}
+
+struct cjto_t *base_presentes(struct base_t *b)
+{
+    if (b == NULL)
+        return NULL;
+
+    return b->pres;
+}
+
+struct fila_t *base_espera(struct base_t *b)
+{
+    if (b == NULL)
+        return NULL;
+
+    return b->esp;
+}
+
+struct ponto_t *base_local(struct base_t *b)
+{
+    if (b == NULL)
+        return NULL;
+
+    return b->loc;
+}
+
 int base_lotada(struct base_t *b)
 {
     if (b == NULL)
@@ -59,12 +91,20 @@ int base_lotada(struct base_t *b)
     return (cjto_card(b->pres) >= b->lot);
 }
 
-int base_tamanho_fila_esp(struct base_t *b)
+int base_espera_tamanho(struct base_t *b)
 {
     if (b == NULL)
         return -1;
 
     return fila_tamanho(b->esp);
+}
+
+int base_espera_insere(struct base_t *b, void *item)
+{
+    if (b == NULL || item == NULL)
+        return -1;
+
+    return fila_insere(b->esp, item);
 }
 
 // TODO

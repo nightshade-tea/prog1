@@ -22,9 +22,19 @@ void base_destroi(struct base_t **b);
 
 int base_id(struct base_t *b);
 
+int base_lotacao(struct base_t *b);
+
+struct cjto_t *base_presentes(struct base_t *b);
+
+struct fila_t *base_espera(struct base_t *b);
+
+struct ponto_t *base_local(struct base_t *b);
+
 int base_lotada(struct base_t *b);
 
-int base_tamanho_fila_esp(struct base_t *b);
+int base_espera_tamanho(struct base_t *b);
+
+int base_espera_insere(struct base_t *b, void *item);
 
 void base_imprime(struct base_t *b);
 
