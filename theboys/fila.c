@@ -23,15 +23,6 @@ void fnodo_destroi(struct fnodo_t **n)
     *n = NULL;
 }
 
-void fnodo_destroi_item(struct fnodo_t *n)
-{
-    if (n == NULL || n->item == NULL)
-        return;
-
-    free(n->item);
-    n->item = NULL;
-}
-
 int fila_vazia(struct fila_t *f)
 {
     if (f == NULL)
@@ -80,7 +71,6 @@ void fila_destroi(struct fila_t **f)
     while (aux != NULL) {
         (*f)->prim = aux->prox;
 
-        fnodo_destroi_item(aux);
         fnodo_destroi(&aux);
 
         aux = (*f)->prim;

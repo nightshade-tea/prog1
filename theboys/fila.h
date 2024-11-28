@@ -14,6 +14,8 @@ struct fila_t {
 
 struct fila_t *fila_cria();
 
+// obs: diferentemente de fprio, fila_destroi NAO desaloca os itens dos nodos.
+// isso evita com que ocorra um double free!!
 void fila_destroi(struct fila_t **f);
 
 int fila_insere(struct fila_t *f, void *item);
