@@ -91,22 +91,6 @@ int base_lotada(struct base_t *b)
     return (cjto_card(b->pres) >= b->lot);
 }
 
-int base_espera_tamanho(struct base_t *b)
-{
-    if (b == NULL)
-        return -1;
-
-    return fila_tamanho(b->esp);
-}
-
-int base_espera_insere(struct base_t *b, void *item)
-{
-    if (b == NULL || item == NULL)
-        return -1;
-
-    return fila_insere(b->esp, item);
-}
-
 // TODO
 void base_imprime(struct base_t *b)
 {

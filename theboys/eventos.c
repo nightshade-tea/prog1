@@ -39,7 +39,7 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
-    fila_insere(b->esp, h);
+    fila_insere(base_espera(b), h);
 
     struct params_t *p = params_cria(NULL, b, NULL);
 
@@ -69,11 +69,11 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
         return;
 
     while (!base_lotada(b) && base_tamanho_fila_esp(b) > 0) {
-        struct heroi_t *h = fila_retira(b->esp);
+        struct heroi_t *h = fila_retira(base_espera(b));
         struct params_t *p = params_cria(h, b, NULL);
 
         if (h != NULL && p != NULL) {
-            cjto_insere(b->pres, h->id);
+            cjto_insere(base_presentes(b), heroi_id(h));
             fprio_insere(lef, p, EV_ENTRA, t);
         } else {
             params_destroi(&p);
@@ -102,7 +102,7 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
-    cjto_retira(b->pres, h->id);
+    cjto_retira(base_presentes(b), heroi_id(h));
 
     struct params_t *pv = params_cria(h, w->bases[aleat(0, N_BASES - 1)], NULL);
     struct params_t *pa = params_cria(NULL, b, NULL);
@@ -129,7 +129,7 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (p == NULL)
         return;
 
-    int ds = ponto_distancia(heroi_base(h)->loc, b->loc);
+    int ds = ponto_distancia(base_local(heroi_base(h)), base_local(b));
     int dt = ds / heroi_vel(h);
 
     fprio_insere(lef, p, EV_CHEGA, t + dt);
@@ -140,7 +140,7 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
-    cjto_retira(b->pres, h->id);
+    cjto_retira(base_presentes(b), heroi_id(h));
     heroi_morre(h);
 
     struct params_t *p = params_cria(NULL, b, NULL);

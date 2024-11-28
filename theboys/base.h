@@ -32,10 +32,6 @@ struct ponto_t *base_local(struct base_t *b);
 
 int base_lotada(struct base_t *b);
 
-int base_espera_tamanho(struct base_t *b);
-
-int base_espera_insere(struct base_t *b, void *item);
-
 void base_imprime(struct base_t *b);
 
 #endif
