@@ -25,7 +25,7 @@ struct heroi_t {
     int morto;
 };
 
-struct heroi_t *heroi_cria(int id, struct base_t *base);
+struct heroi_t *heroi_cria(int id, struct base_t *b);
 
 void heroi_destroi(struct heroi_t **h);
 

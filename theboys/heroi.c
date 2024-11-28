@@ -17,7 +17,7 @@ void heroi_destroi(struct heroi_t **h)
     *h = NULL;
 }
 
-struct heroi_t *heroi_cria(int id, struct base_t *base)
+struct heroi_t *heroi_cria(int id, struct base_t *b)
 {
     struct heroi_t *h = malloc(sizeof(struct heroi_t));
 
@@ -33,7 +33,7 @@ struct heroi_t *heroi_cria(int id, struct base_t *base)
     }
 
     h->id = id;
-    h->base = base;
+    h->base = b;
     h->exp = H_EXPERIENCIA_INICIAL;
     h->pac = aleat(H_MIN_PACIENCIA, H_MAX_PACIENCIA);
     h->vel = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
