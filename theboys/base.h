@@ -20,6 +20,8 @@ struct base_t *base_cria(int id);
 
 void base_destroi(struct base_t **b);
 
+int base_lotada(struct base_t *b);
+
 void base_imprime(struct base_t *b);
 
 #endif
