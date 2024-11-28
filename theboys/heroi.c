@@ -42,6 +42,54 @@ struct heroi_t *heroi_cria(int id, int base)
     return h;
 }
 
+int heroi_id(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->id;
+}
+
+int heroi_pac(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->pac;
+}
+
+int heroi_vel(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->vel;
+}
+
+int heroi_exp(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->exp;
+}
+
+int heroi_base(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->base;
+}
+
+int heroi_morto(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return h->morto;
+}
+
 void heroi_chega(struct heroi_t *h, struct base_t *b)
 {
     if (h == NULL || b == NULL)
@@ -56,14 +104,6 @@ void heroi_morre(struct heroi_t *h)
         return;
 
     h->morto = 1;
-}
-
-int heroi_morto(struct heroi_t *h)
-{
-    if (h == NULL)
-        return -1;
-
-    return h->morto;
 }
 
 void heroi_imprime(struct heroi_t *h)

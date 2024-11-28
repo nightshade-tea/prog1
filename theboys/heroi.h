@@ -29,11 +29,21 @@ struct heroi_t *heroi_cria(int id, int base);
 
 void heroi_destroi(struct heroi_t **h);
 
+int heroi_id(struct heroi_t *h);
+
+int heroi_pac(struct heroi_t *h);
+
+int heroi_vel(struct heroi_t *h);
+
+int heroi_exp(struct heroi_t *h);
+
+int heroi_base(struct heroi_t *h);
+
+int heroi_morto(struct heroi_t *h);
+
 void heroi_chega(struct heroi_t *h, struct base_t *b);
 
 void heroi_morre(struct heroi_t *h);
-
-int heroi_morto(struct heroi_t *h);
 
 void heroi_imprime(struct heroi_t *h);
 
