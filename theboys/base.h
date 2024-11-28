@@ -24,6 +24,8 @@ int base_id(struct base_t *b);
 
 int base_lotada(struct base_t *b);
 
+int base_tamanho_fila_esp(struct base_t *b);
+
 void base_imprime(struct base_t *b);
 
 #endif
