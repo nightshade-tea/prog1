@@ -108,7 +108,7 @@ int main()
             sai(w->clk, p->h, p->b, lef, w);
             break;
         case EV_VIAJA:
-            viaja(w->clk, p->h, p->b, lef, w);
+            viaja(w->clk, p->h, p->b, lef);
             break;
         case EV_MORRE:
             morre(w->clk, p->h, p->b, lef);

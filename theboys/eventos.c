@@ -117,11 +117,9 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     fprio_insere(lef, pa, EV_AVISA, t);
 }
 
-void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
-           struct mundo_t *w)
+void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || heroi_base(h) == NULL || b == NULL ||
-        lef == NULL || w == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
     struct params_t *p = params_cria(h, b, NULL);
