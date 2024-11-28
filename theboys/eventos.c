@@ -18,10 +18,10 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     heroi_chega(h, b);
 
     int espera;
-    if (!base_lotada(b) && fila_tamanho(b->esp) == 0)
+    if (!base_lotada(b) && base_tamanho_fila_esp(b) == 0)
         espera = 1;
     else
-        espera = (h->pac) > (10 * fila_tamanho(b->esp));
+        espera = (h->pac) > (10 * base_tamanho_fila_esp(b));
 
     struct params_t *p = params_cria(h, b, NULL);
 
@@ -68,7 +68,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
     if (b == NULL || lef == NULL)
         return;
 
-    while (!base_lotada(b) && fila_tamanho(b->esp) > 0) {
+    while (!base_lotada(b) && base_tamanho_fila_esp(b) > 0) {
         struct heroi_t *h = fila_retira(b->esp);
         struct params_t *p = params_cria(h, b, NULL);
 
