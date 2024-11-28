@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "conjunto.h"
 #include "common.h"
 #include "ponto.h"
@@ -40,4 +41,16 @@ struct base_t *base_cria(int id)
     }
 
     return b;
+}
+
+// TODO
+void base_imprime(struct base_t *b)
+{
+    if (b == NULL)
+        return;
+
+    printf("BASE %2d ", b->id);
+    printf("LOT %2d ", b->lot);
+    // FILA MAX %2d
+    // MISSOES %d
 }
