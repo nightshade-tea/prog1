@@ -21,7 +21,7 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (!base_lotada(b) && base_tamanho_fila_esp(b) == 0)
         espera = 1;
     else
-        espera = heroi_pac(h) > (10 * base_tamanho_fila_esp(b));
+        espera = heroi_paciencia(h) > (10 * base_tamanho_fila_esp(b));
 
     struct params_t *p = params_cria(h, b, NULL);
 
@@ -91,7 +91,7 @@ void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (p == NULL)
         return;
 
-    int tpb = 15 + (heroi_pac(h) * aleat(1, 20));
+    int tpb = 15 + (heroi_paciencia(h) * aleat(1, 20));
 
     fprio_insere(lef, p, EV_SAI, t + tpb);
 }
@@ -130,7 +130,7 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
         return;
 
     int ds = ponto_distancia(base_local(heroi_base(h)), base_local(b));
-    int dt = ds / heroi_vel(h);
+    int dt = ds / heroi_velocidade(h);
 
     fprio_insere(lef, p, EV_CHEGA, t + dt);
 }

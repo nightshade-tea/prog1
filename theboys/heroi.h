@@ -31,13 +31,13 @@ void heroi_destroi(struct heroi_t **h);
 
 int heroi_id(struct heroi_t *h);
 
-struct cjto_t *heroi_habs(struct heroi_t *h);
+struct cjto_t *heroi_habilidades(struct heroi_t *h);
 
-int heroi_pac(struct heroi_t *h);
+int heroi_paciencia(struct heroi_t *h);
 
-int heroi_vel(struct heroi_t *h);
+int heroi_velocidade(struct heroi_t *h);
 
-int heroi_exp(struct heroi_t *h);
+int heroi_experiencia(struct heroi_t *h);
 
 struct base_t *heroi_base(struct heroi_t *h);
 

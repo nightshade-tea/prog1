@@ -50,7 +50,7 @@ int heroi_id(struct heroi_t *h)
     return h->id;
 }
 
-struct cjto_t *heroi_habs(struct heroi_t *h)
+struct cjto_t *heroi_habilidades(struct heroi_t *h)
 {
     if (h == NULL)
         return NULL;
@@ -58,7 +58,7 @@ struct cjto_t *heroi_habs(struct heroi_t *h)
     return h->habs;
 }
 
-int heroi_pac(struct heroi_t *h)
+int heroi_paciencia(struct heroi_t *h)
 {
     if (h == NULL)
         return -1;
@@ -66,7 +66,7 @@ int heroi_pac(struct heroi_t *h)
     return h->pac;
 }
 
-int heroi_vel(struct heroi_t *h)
+int heroi_velocidade(struct heroi_t *h)
 {
     if (h == NULL)
         return -1;
@@ -74,7 +74,7 @@ int heroi_vel(struct heroi_t *h)
     return h->vel;
 }
 
-int heroi_exp(struct heroi_t *h)
+int heroi_experiencia(struct heroi_t *h)
 {
     if (h == NULL)
         return -1;
