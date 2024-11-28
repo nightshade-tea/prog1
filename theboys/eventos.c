@@ -12,7 +12,7 @@
 
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || b == NULL || lef == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
     h->base = b->id;
@@ -36,7 +36,7 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || b == NULL || lef == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
     fila_insere(b->esp, h);
@@ -52,7 +52,7 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
              struct mundo_t *w)
 {
-    if (h == NULL || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
     struct params_t *p = params_cria(h, w->bases[aleat(0, N_BASES - 1)], NULL);
@@ -83,7 +83,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
 
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || b == NULL || lef == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
     struct params_t *p = params_cria(h, b, NULL);
@@ -99,7 +99,7 @@ void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
          struct mundo_t *w)
 {
-    if (h == NULL || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
     cjto_retira(b->pres, h->id);
@@ -120,7 +120,7 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
 void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
            struct mundo_t *w)
 {
-    if (h == NULL || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
     struct params_t *p = params_cria(h, b, NULL);
