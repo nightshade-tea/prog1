@@ -32,4 +32,6 @@ void heroi_morre(struct heroi_t *h);
 
 int heroi_morto(struct heroi_t *h);
 
+void heroi_imprime(struct heroi_t *h);
+
 #endif

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "conjunto.h"
 #include "common.h"
 #include "mundo.h"
@@ -54,4 +55,19 @@ int heroi_morto(struct heroi_t *h)
         return -1;
 
     return h->morto;
+}
+
+void heroi_imprime(struct heroi_t *h)
+{
+    if (h == NULL)
+        return;
+
+    printf("HEROI %2d ", h->id);
+    printf("%5s ", heroi_morto(h) ? "MORTO" : "VIVO");
+    printf("PAC %3d ", h->pac);
+    printf("VEL %4d ", h->vel);
+    printf("EXP %4d ", h->exp);
+    printf("HABS [ ");
+    cjto_imprime(h->habs);
+    printf(" ]\n");
 }
