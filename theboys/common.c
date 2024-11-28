@@ -13,7 +13,6 @@ int aleat(int min, int max)
 void erro(const char *msg)
 {
     fprintf(stderr, "%s\n", msg);
-    exit(-1);
 }
 
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
