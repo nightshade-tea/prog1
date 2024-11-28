@@ -21,11 +21,11 @@ struct heroi_t {
     int pac;
     int vel;
     int exp;
-    int base;
+    struct base_t *base;
     int morto;
 };
 
-struct heroi_t *heroi_cria(int id, int base);
+struct heroi_t *heroi_cria(int id, struct base_t *base);
 
 void heroi_destroi(struct heroi_t **h);
 
@@ -37,7 +37,7 @@ int heroi_vel(struct heroi_t *h);
 
 int heroi_exp(struct heroi_t *h);
 
-int heroi_base(struct heroi_t *h);
+struct base_t *heroi_base(struct heroi_t *h);
 
 int heroi_morto(struct heroi_t *h);
 

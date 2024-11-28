@@ -120,7 +120,8 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
 void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
            struct mundo_t *w)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || heroi_morto(h) || heroi_base(h) == NULL || b == NULL ||
+        lef == NULL || w == NULL)
         return;
 
     struct params_t *p = params_cria(h, b, NULL);
@@ -128,7 +129,7 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (p == NULL)
         return;
 
-    int ds = ponto_distancia(w->bases[h->base]->loc, b->loc);
+    int ds = ponto_distancia(heroi_base(h)->loc, b->loc);
     int dt = ds / heroi_vel(h);
 
     fprio_insere(lef, p, EV_CHEGA, t + dt);

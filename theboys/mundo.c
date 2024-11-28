@@ -26,7 +26,7 @@ struct heroi_t **vh_cria()
 
     int i;
     for (i = 0; i < N_HEROIS; i++) {
-        vh[i] = heroi_cria(i, -1);
+        vh[i] = heroi_cria(i, NULL);
 
         if (vh[i] == NULL) {
             vh_destroi(&vh);

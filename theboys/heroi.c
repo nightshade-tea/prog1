@@ -17,7 +17,7 @@ void heroi_destroi(struct heroi_t **h)
     *h = NULL;
 }
 
-struct heroi_t *heroi_cria(int id, int base)
+struct heroi_t *heroi_cria(int id, struct base_t *base)
 {
     struct heroi_t *h = malloc(sizeof(struct heroi_t));
 
@@ -74,10 +74,10 @@ int heroi_exp(struct heroi_t *h)
     return h->exp;
 }
 
-int heroi_base(struct heroi_t *h)
+struct base_t *heroi_base(struct heroi_t *h)
 {
     if (h == NULL)
-        return -1;
+        return NULL;
 
     return h->base;
 }
@@ -95,7 +95,7 @@ void heroi_chega(struct heroi_t *h, struct base_t *b)
     if (h == NULL || b == NULL)
         return;
 
-    h->base = base_id(b);
+    h->base = b;
 }
 
 void heroi_morre(struct heroi_t *h)
