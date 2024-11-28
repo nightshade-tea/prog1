@@ -15,7 +15,7 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
-    h->base = b->id;
+    heroi_chega(h, b);
 
     int espera;
     if (!base_lotada(b) && fila_tamanho(b->esp) == 0)
