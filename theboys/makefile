@@ -8,11 +8,11 @@ MAIN    = theboys
 ENTREGA = $(MAIN)
 
 # lista de arquivos de cabeçalho (a completar)
-HDR = lista.h fprio.h conjunto.h
+HDR = lista.h fprio.h conjunto.h fila.h eventos.h heroi.h base.h ponto.h mundo.h common.h missao.h
 
 # lista de arquivos-objeto (a completar)
 # não inclua conjunto.o, senão ele será removido com "make clean"
-OBJ = lista.o fprio.o theboys.o
+OBJ = lista.o fprio.o fila.o eventos.o heroi.o base.o ponto.o mundo.o common.o missao.o
 
 # construir o executável
 $(MAIN): $(MAIN).o $(OBJ) conjunto.o
@@ -23,6 +23,14 @@ $(MAIN).o: $(MAIN).c $(HDR)
 # construir os TADs
 lista.o: lista.c lista.h
 fprio.o: fprio.c fprio.h
+fila.o: fila.c fila.h
+eventos.o: eventos.c eventos.h
+heroi.o: heroi.c heroi.h
+base.o: base.c base.h
+ponto.o: ponto.c ponto.h
+mundo.o: mundo.c mundo.h
+common.o: common.c common.h
+missao.o: missao.c missao.h
 
 # executar
 run: $(MAIN)
@@ -44,4 +52,3 @@ tgz: clean
 # limpar arquivos temporários
 clean:
 	rm -f *~ $(OBJ) $(MAIN) /tmp/$(USER)/$(ENTREGA) $(ENTREGA).tgz
-
