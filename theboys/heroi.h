@@ -31,6 +31,8 @@ void heroi_destroi(struct heroi_t **h);
 
 int heroi_id(struct heroi_t *h);
 
+struct cjto_t *heroi_habs(struct heroi_t *h);
+
 int heroi_pac(struct heroi_t *h);
 
 int heroi_vel(struct heroi_t *h);

@@ -50,6 +50,14 @@ int heroi_id(struct heroi_t *h)
     return h->id;
 }
 
+struct cjto_t *heroi_habs(struct heroi_t *h)
+{
+    if (h == NULL)
+        return NULL;
+
+    return h->habs;
+}
+
 int heroi_pac(struct heroi_t *h)
 {
     if (h == NULL)
