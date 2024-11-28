@@ -18,6 +18,17 @@
 #define EV_MISSAO 8
 #define EV_FIM 9
 
+struct params_t {
+    struct heroi_t *h;
+    struct base_t *b;
+    struct missao_t *m;
+};
+
+struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
+                             struct missao_t *m);
+
+void params_destroi(struct params_t **p);
+
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,

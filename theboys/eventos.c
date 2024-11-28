@@ -1,4 +1,4 @@
-#include <stddef.h>
+#include <stdlib.h>
 #include "conjunto.h"
 #include "eventos.h"
 #include "common.h"
@@ -9,6 +9,30 @@
 #include "heroi.h"
 #include "base.h"
 #include "fila.h"
+
+struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
+                             struct missao_t *m)
+{
+    struct params_t *p = malloc(sizeof(struct params_t));
+
+    if (p == NULL)
+        return NULL;
+
+    p->h = h;
+    p->b = b;
+    p->m = m;
+
+    return p;
+}
+
+void params_destroi(struct params_t **p)
+{
+    if (p == NULL || *p == NULL)
+        return;
+
+    free(*p);
+    *p = NULL;
+}
 
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
