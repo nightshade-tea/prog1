@@ -93,34 +93,34 @@ int main()
 
         switch (ev) {
         case EV_CHEGA:
-            chega(w->clk, p->h, p->b, lef);
+            chega(mundo_relogio(w), p->h, p->b, lef);
             break;
         case EV_ESPERA:
-            espera(w->clk, p->h, p->b, lef);
+            espera(mundo_relogio(w), p->h, p->b, lef);
             break;
         case EV_DESISTE:
-            desiste(w->clk, p->h, p->b, lef, w);
+            desiste(mundo_relogio(w), p->h, p->b, lef, w);
             break;
         case EV_AVISA:
-            avisa(w->clk, p->b, lef);
+            avisa(mundo_relogio(w), p->b, lef);
             break;
         case EV_ENTRA:
-            entra(w->clk, p->h, p->b, lef);
+            entra(mundo_relogio(w), p->h, p->b, lef);
             break;
         case EV_SAI:
-            sai(w->clk, p->h, p->b, lef, w);
+            sai(mundo_relogio(w), p->h, p->b, lef, w);
             break;
         case EV_VIAJA:
-            viaja(w->clk, p->h, p->b, lef);
+            viaja(mundo_relogio(w), p->h, p->b, lef);
             break;
         case EV_MORRE:
-            morre(w->clk, p->h, p->b, lef);
+            morre(mundo_relogio(w), p->h, p->b, lef);
             break;
         case EV_MISSAO:
-            missao(w->clk, p->m, lef);
+            missao(mundo_relogio(w), p->m, lef);
             break;
         case EV_FIM:
-            fim(w->clk);
+            fim(mundo_relogio(w));
             break;
         default:
             erro("EVENTO INVALIDO");
