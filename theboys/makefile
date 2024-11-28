@@ -51,4 +51,4 @@ tgz: clean
 
 # limpar arquivos temporários
 clean:
-	rm -f *~ $(OBJ) $(MAIN) /tmp/$(USER)/$(ENTREGA) $(ENTREGA).tgz
+	rm -f *~ $(OBJ) $(MAIN) $(MAIN).o /tmp/$(USER)/$(ENTREGA) $(ENTREGA).tgz
