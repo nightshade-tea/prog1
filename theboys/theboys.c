@@ -93,31 +93,31 @@ int main()
 
         switch (ev) {
         case EV_CHEGA:
-            chega(mundo_relogio(w), p->h, p->b, lef);
+            chega(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_ESPERA:
-            espera(mundo_relogio(w), p->h, p->b, lef);
+            espera(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_DESISTE:
-            desiste(mundo_relogio(w), p->h, p->b, lef, w);
+            desiste(mundo_relogio(w), params_heroi(p), params_base(p), lef, w);
             break;
         case EV_AVISA:
-            avisa(mundo_relogio(w), p->b, lef);
+            avisa(mundo_relogio(w), params_base(p), lef);
             break;
         case EV_ENTRA:
-            entra(mundo_relogio(w), p->h, p->b, lef);
+            entra(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_SAI:
-            sai(mundo_relogio(w), p->h, p->b, lef, w);
+            sai(mundo_relogio(w), params_heroi(p), params_base(p), lef, w);
             break;
         case EV_VIAJA:
-            viaja(mundo_relogio(w), p->h, p->b, lef);
+            viaja(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_MORRE:
-            morre(mundo_relogio(w), p->h, p->b, lef);
+            morre(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_MISSAO:
-            missao(mundo_relogio(w), p->m, lef);
+            missao(mundo_relogio(w), params_missao(p), lef);
             break;
         case EV_FIM:
             fim(mundo_relogio(w));
