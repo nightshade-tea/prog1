@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "fila.h"
 
-struct fnodo_t *fnodo_cria(void *item, struct fnodo_t *prox)
+struct fnodo_t *fnodo_cria(void *item, int id, struct fnodo_t *prox)
 {
     struct fnodo_t *n = malloc(sizeof(struct fnodo_t));
 
@@ -9,6 +9,7 @@ struct fnodo_t *fnodo_cria(void *item, struct fnodo_t *prox)
         return NULL;
 
     n->item = item;
+    n->id = id;
     n->prox = prox;
 
     return n;
@@ -80,12 +81,12 @@ void fila_destroi(struct fila_t **f)
     *f = NULL;
 }
 
-int fila_insere(struct fila_t *f, void *item)
+int fila_insere(struct fila_t *f, void *item, int id)
 {
     if (f == NULL || item == NULL || fila_item_incluso(f, item))
         return -1;
 
-    struct fnodo_t *novo = fnodo_cria(item, NULL);
+    struct fnodo_t *novo = fnodo_cria(item, id, NULL);
 
     if (novo == NULL)
         return -1;
@@ -101,7 +102,7 @@ int fila_insere(struct fila_t *f, void *item)
     return ++(f->num);
 }
 
-void *fila_retira(struct fila_t *f)
+void *fila_retira(struct fila_t *f, int *id)
 {
     if (f == NULL || f->prim == NULL)
         return NULL;
@@ -115,6 +116,10 @@ void *fila_retira(struct fila_t *f)
     f->num--;
 
     void *item = aux->item;
+
+    if (id != NULL)
+        *id = aux->id;
+
     fnodo_destroi(&aux);
 
     return item;
