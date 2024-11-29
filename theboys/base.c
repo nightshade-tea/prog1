@@ -128,7 +128,6 @@ int base_lotada(struct base_t *b)
     return (cjto_card(b->pres) >= b->lot);
 }
 
-// TODO
 void base_imprime(struct base_t *b)
 {
     if (b == NULL)
