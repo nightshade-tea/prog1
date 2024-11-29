@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "fila.h"
 
 struct fnodo_t *fnodo_cria(void *item, int id, struct fnodo_t *prox)
@@ -22,6 +23,14 @@ void fnodo_destroi(struct fnodo_t **n)
 
     free(*n);
     *n = NULL;
+}
+
+void fnodo_imprime(struct fnodo_t *n)
+{
+    if (n == NULL)
+        return;
+
+    printf("%d", n->id);
 }
 
 int fila_vazia(struct fila_t *f)
@@ -131,4 +140,24 @@ int fila_tamanho(struct fila_t *f)
         return -1;
 
     return f->num;
+}
+
+void fila_imprime(struct fila_t *f)
+{
+    if (f == NULL || fila_vazia(f))
+        return;
+
+    struct fnodo_t *aux = f->prim;
+
+    if (aux == NULL)
+        return;
+
+    fnodo_imprime(aux);
+    aux = aux->prox;
+
+    while (aux != NULL) {
+        printf(" ");
+        fnodo_imprime(aux);
+        aux = aux->prox;
+    }
 }

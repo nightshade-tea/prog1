@@ -25,4 +25,6 @@ void *fila_retira(struct fila_t *f, int *id);
 
 int fila_tamanho(struct fila_t *f);
 
+void fila_imprime(struct fila_t *f);
+
 #endif
