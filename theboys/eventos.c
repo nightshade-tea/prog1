@@ -140,6 +140,8 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
         if (h != NULL && p != NULL) {
             cjto_insere(base_presentes(b), heroi_id(h));
             fprio_insere(lef, p, EV_ENTRA, t);
+            printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d\n", t, base_id(b),
+                   heroi_id(h));
         } else {
             params_destroi(&p);
         }
@@ -159,6 +161,9 @@ void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
         return;
 
     int tpb = 15 + (heroi_paciencia(h) * aleat(1, 20));
+
+    printf("%6d: ENTRA  HEROI %2d BASE %d (%2d/%2d) SAI %d\n", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b), t + tpb);
 
     fprio_insere(lef, p, EV_SAI, t + tpb);
 }
@@ -180,6 +185,9 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
         return;
     }
 
+    printf("%6d: SAI    HEROI %2d BASE %d (%2d/%2d)\n", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
+
     fprio_insere(lef, pv, EV_VIAJA, t);
     fprio_insere(lef, pa, EV_AVISA, t);
 }
@@ -197,16 +205,23 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     int ds = ponto_distancia(base_local(heroi_base(h)), base_local(b));
     int dt = ds / heroi_velocidade(h);
 
+    printf("%6d: VIAJA  HEROI %2d BASE %d BASE %d DIST %d VEL %d CHEGA %d\n", t,
+           heroi_id(h), base_id(heroi_base(h)), base_id(b), ds,
+           heroi_velocidade(h), t + dt);
+
     fprio_insere(lef, p, EV_CHEGA, t + dt);
 }
 
-void morre(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
+void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
+           struct fprio_t *lef)
 {
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
     cjto_retira(base_presentes(b), heroi_id(h));
     heroi_morre(h);
+
+    printf("%6d: MORRE  HEROI %2d MISSAO %d\n", t, heroi_id(h), missao_id(m));
 
     struct params_t *p = params_cria(NULL, b, NULL);
 
@@ -222,9 +237,13 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef)
         return;
 
     // TODO
+
+    printf("%6d: MISSAO %d\n", t, missao_id(m));
 }
 
 void fim(int t)
 {
     // TODO
+
+    printf("%6d: FIM\n", t);
 }

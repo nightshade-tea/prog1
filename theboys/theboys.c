@@ -114,7 +114,8 @@ int main()
             viaja(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_MORRE:
-            morre(mundo_relogio(w), params_heroi(p), params_base(p), lef);
+            morre(mundo_relogio(w), params_heroi(p), params_base(p),
+                  params_missao(p), lef);
             break;
         case EV_MISSAO:
             missao(mundo_relogio(w), params_missao(p), lef);
