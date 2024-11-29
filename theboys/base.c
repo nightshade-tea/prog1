@@ -136,6 +136,6 @@ void base_imprime(struct base_t *b)
 
     printf("BASE %2d ", b->id);
     printf("LOT %2d ", b->lot);
-    // FILA MAX %2d
-    // MISSOES %d
+    printf("FILA MAX %2d ", b->fmax);
+    printf("MISSOES %d\n", b->mcumpr);
 }
