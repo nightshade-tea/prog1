@@ -130,7 +130,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
 
     printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ", t, base_id(b),
            cjto_card(base_presentes(b)), base_lotacao(b));
-    //fila_imprime(base_espera(b)); TODO!
+    fila_imprime(base_espera(b));
     printf(" ]\n");
 
     while (!base_lotada(b) && fila_tamanho(base_espera(b)) > 0) {
