@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "conjunto.h"
 #include "eventos.h"
 #include "common.h"
@@ -76,10 +77,16 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (p == NULL)
         return;
 
-    if (espera)
+    printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) ", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
+
+    if (espera) {
         fprio_insere(lef, p, EV_ESPERA, t);
-    else
+        printf("ESPERA\n");
+    } else {
         fprio_insere(lef, p, EV_DESISTE, t);
+        printf("DESISTE\n");
+    }
 }
 
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
@@ -87,12 +94,15 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
         return;
 
-    fila_insere(base_espera(b), h);
-
     struct params_t *p = params_cria(NULL, b, NULL);
 
     if (p == NULL)
         return;
+    
+    printf("%6d: ESPERA HEROI %2d BASE %d (%2d)\n", t, heroi_id(h), base_id(b),
+           fila_tamanho(base_espera(b)));
+
+    fila_insere(base_espera(b), h);
 
     fprio_insere(lef, p, EV_AVISA, t);
 }
@@ -108,6 +118,8 @@ void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (p == NULL)
         return;
 
+    printf("%6d: DESIST HEROI %2d BASE %d\n", t, heroi_id(h), base_id(b));
+
     fprio_insere(lef, p, EV_VIAJA, t);
 }
 
@@ -115,6 +127,11 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
 {
     if (b == NULL || lef == NULL)
         return;
+
+    printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ", t, base_id(b),
+           cjto_card(base_presentes(b)), base_lotacao(b));
+    //fila_imprime(base_espera(b)); TODO!
+    printf(" ]\n");
 
     while (!base_lotada(b) && fila_tamanho(base_espera(b)) > 0) {
         struct heroi_t *h = fila_retira(base_espera(b));
