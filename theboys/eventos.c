@@ -102,7 +102,7 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     printf("%6d: ESPERA HEROI %2d BASE %d (%2d)\n", t, heroi_id(h), base_id(b),
            fila_tamanho(base_espera(b)));
 
-    fila_insere(base_espera(b), h);
+    fila_insere(base_espera(b), h, heroi_id(h));
 
     fprio_insere(lef, p, EV_AVISA, t);
 }
@@ -134,7 +134,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
     printf(" ]\n");
 
     while (!base_lotada(b) && fila_tamanho(base_espera(b)) > 0) {
-        struct heroi_t *h = fila_retira(base_espera(b));
+        struct heroi_t *h = fila_retira(base_espera(b), NULL);
         struct params_t *p = params_cria(h, b, NULL);
 
         if (h != NULL && p != NULL) {
