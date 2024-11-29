@@ -113,7 +113,8 @@ void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
-    struct params_t *p = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)), NULL);
+    struct params_t *p = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)),
+                                     NULL);
 
     if (p == NULL)
         return;
@@ -176,7 +177,9 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
 
     cjto_retira(base_presentes(b), heroi_id(h));
 
-    struct params_t *pv = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)), NULL);
+    struct params_t *pv = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)),
+                                      NULL);
+
     struct params_t *pa = params_cria(NULL, b, NULL);
 
     if (pv == NULL || pa == NULL) {
