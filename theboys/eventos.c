@@ -127,6 +127,8 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
             params_destroi(&p);
         }
     }
+
+    base_fila_max_atualiza(b);
 }
 
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)

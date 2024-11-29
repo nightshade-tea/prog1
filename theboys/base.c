@@ -34,6 +34,8 @@ struct base_t *base_cria(int id)
     b->pres = cjto_cria(N_HEROIS);
     b->esp = fila_cria();
     b->id = id;
+    b->fmax = 0;
+    b->mcumpr = 0;
 
     if (b->loc == NULL || b->esp == NULL || b->pres == NULL) {
         base_destroi(&b);
@@ -81,6 +83,41 @@ struct ponto_t *base_local(struct base_t *b)
         return NULL;
 
     return b->loc;
+}
+
+int base_fila_max(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    return b->fmax;
+}
+
+int base_missoes_cumpridas(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    return b->mcumpr;
+}
+
+int base_missoes_cumpridas_inc(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    return ++(b->mcumpr);
+}
+
+int base_fila_max_atualiza(struct base_t *b)
+{
+    if (b == NULL)
+        return -1;
+
+    if (fila_tamanho(b->esp) > b->fmax)
+        return b->fmax = fila_tamanho(b->esp);
+
+    return b->fmax;
 }
 
 int base_lotada(struct base_t *b)

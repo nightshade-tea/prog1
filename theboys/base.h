@@ -14,6 +14,8 @@ struct base_t {
     struct cjto_t *pres;
     struct fila_t *esp;
     struct ponto_t *loc;
+    int fmax;
+    int mcumpr;
 };
 
 struct base_t *base_cria(int id);
@@ -29,6 +31,14 @@ struct cjto_t *base_presentes(struct base_t *b);
 struct fila_t *base_espera(struct base_t *b);
 
 struct ponto_t *base_local(struct base_t *b);
+
+int base_fila_max(struct base_t *b);
+
+int base_missoes_cumpridas(struct base_t *b);
+
+int base_missoes_cumpridas_inc(struct base_t *b);
+
+int base_fila_max_atualiza(struct base_t *b);
 
 int base_lotada(struct base_t *b);
 
