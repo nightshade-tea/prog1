@@ -32,6 +32,8 @@ struct missao_t *missao_cria(int id)
 
     m->per = aleat(M_MIN_PERIGO, M_MAX_PERIGO);
     m->id = id;
+    m->cumpr = 0;
+    m->tents = 0;
 
     if (m->loc == NULL || m->habs == NULL) {
         missao_destroi(&m);
@@ -71,4 +73,36 @@ struct ponto_t *missao_local(struct missao_t *m)
         return NULL;
 
     return m->loc;
+}
+
+int missao_cumprida(struct missao_t *m)
+{
+    if (m == NULL)
+        return -1;
+
+    return m->cumpr;
+}
+
+int missao_tentativas(struct missao_t *m)
+{
+    if (m == NULL)
+        return -1;
+
+    return m->tents;
+}
+
+int missao_tenta(struct missao_t *m)
+{
+    if (m == NULL)
+        return -1;
+
+    return ++(m->tents);
+}
+
+void missao_cumpre(struct missao_t *m)
+{
+    if (m == NULL)
+        return;
+
+    m->cumpr = 1;
 }
