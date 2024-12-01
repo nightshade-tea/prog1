@@ -47,6 +47,8 @@ void heroi_chega(struct heroi_t *h, struct base_t *b);
 
 void heroi_morre(struct heroi_t *h);
 
+int heroi_experiencia_inc(struct heroi_t *h);
+
 void heroi_imprime(struct heroi_t *h);
 
 #endif

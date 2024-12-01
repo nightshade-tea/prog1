@@ -114,6 +114,14 @@ void heroi_morre(struct heroi_t *h)
     h->morto = 1;
 }
 
+int heroi_experiencia_inc(struct heroi_t *h)
+{
+    if (h == NULL)
+        return -1;
+
+    return ++(h->exp);
+}
+
 void heroi_imprime(struct heroi_t *h)
 {
     if (h == NULL)
