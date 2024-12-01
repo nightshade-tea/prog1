@@ -242,6 +242,11 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
     if (m == NULL || lef == NULL)
         return;
 
+    printf("%6d: MISSAO %d TENT %d HAB REQ: [ ", t, missao_id(m),
+           missao_tentativas(m));
+    cjto_imprime(missao_habilidades(m));
+    printf(" ]\n");
+
     missao_tenta(m);
 
     int i;
@@ -272,11 +277,20 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
             return;
 
         fprio_insere(lef, p, EV_MISSAO, t + (24 * 60));
-        // TODO - printar msg
+        printf("%6d: MISSAO %d IMPOSSIVEL", t, missao_id(m));
         return;
     }
 
     missao_cumpre(m);
+    
+    struct cjto_t *habs_bmp = base_habilidades(bmp, w);
+
+    printf("%6d: MISSAO %d CUMPRIDA BASE %d HABS: [ ", t, missao_id(m),
+           base_id(bmp));
+    cjto_imprime(habs_bmp);
+    printf(" ]\n");
+
+    cjto_destroi(habs_bmp);
 
     for (i = 0; i < N_HEROIS; i++) {
         struct heroi_t *h = mundo_heroi(w, i);
@@ -294,8 +308,6 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
             heroi_experiencia_inc(h);
         }
     }
-
-    printf("%6d: MISSAO %d\n", t, missao_id(m));
 }
 
 void fim(int t)
