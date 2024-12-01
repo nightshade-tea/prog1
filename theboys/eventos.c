@@ -12,6 +12,7 @@
 #include "fila.h"
 
 // TODO: remover checks de NULL para params_t. fprio_insere não aceita NULL.
+// TODO: fazer funcoes mensagemX_<evento>()
 
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
                              struct missao_t *m)
