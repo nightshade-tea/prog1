@@ -11,6 +11,8 @@
 #include "base.h"
 #include "fila.h"
 
+// TODO: remover checks de NULL para params_t. fprio_insere não aceita NULL.
+
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
                              struct missao_t *m)
 {
@@ -234,12 +236,64 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
     fprio_insere(lef, p, EV_AVISA, t);
 }
 
-void missao(int t, struct missao_t *m, struct fprio_t *lef)
+// TODO: modularizar missao()
+void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 {
     if (m == NULL || lef == NULL)
         return;
 
-    // TODO
+    missao_tenta(m);
+
+    int i;
+    struct base_t *bmp = NULL;
+    for (i = 0; i < N_BASES; i++) {
+        struct base_t *b = mundo_base(w, i);
+        struct cjto_t *habs = base_habilidades(b, w);
+
+        if (cjto_contem(habs, missao_habilidades(m)) != 1) {
+            habs = cjto_destroi(habs);
+            continue;
+        }
+
+        if (bmp != NULL && ponto_distancia(base_local(bmp), missao_local(m)) <
+            ponto_distancia(base_local(b), missao_local(m))) {
+            habs = cjto_destroi(habs);
+            continue;
+        }
+        
+        bmp = b;
+        habs = cjto_destroi(habs);
+    }
+
+    if (bmp == NULL) { // IMPOSSIVEL
+        struct params_t *p = params_cria(NULL, NULL, m);
+
+        if (p == NULL)
+            return;
+
+        fprio_insere(lef, p, EV_MISSAO, t + (24 * 60));
+        // TODO - printar msg
+        return;
+    }
+
+    missao_cumpre(m);
+
+    for (i = 0; i < N_HEROIS; i++) {
+        struct heroi_t *h = mundo_heroi(w, i);
+
+        if (cjto_pertence(base_presentes(bmp), heroi_id(h)) != 1)
+            continue;
+
+        int risco = missao_perigo(m);
+        risco /= (heroi_paciencia(h) + heroi_experiencia(h) + 1.0);
+
+        if (risco > aleat(0, 30)) {
+            struct params_t *p = params_cria(h, bmp, m);
+            fprio_insere(lef, p, EV_MORRE, t);
+        } else {
+            heroi_experiencia_inc(h);
+        }
+    }
 
     printf("%6d: MISSAO %d\n", t, missao_id(m));
 }

@@ -119,7 +119,7 @@ int main()
                   params_missao(p), lef);
             break;
         case EV_MISSAO:
-            missao(mundo_relogio(w), params_missao(p), lef);
+            missao(mundo_relogio(w), params_missao(p), lef, w);
             break;
         case EV_FIM:
             fim(mundo_relogio(w));
