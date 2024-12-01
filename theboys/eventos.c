@@ -278,7 +278,7 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
             return;
 
         fprio_insere(lef, p, EV_MISSAO, t + (24 * 60));
-        printf("%6d: MISSAO %d IMPOSSIVEL", t, missao_id(m));
+        printf("%6d: MISSAO %d IMPOSSIVEL\n", t, missao_id(m));
         return;
     }
 
