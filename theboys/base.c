@@ -128,6 +128,29 @@ int base_lotada(struct base_t *b)
     return (cjto_card(b->pres) >= b->lot);
 }
 
+struct cjto_t *base_habilidades(struct base_t *b, struct mundo_t *w)
+{
+    if (b == NULL || w == NULL)
+        return NULL;
+
+    struct cjto_t *c = cjto_cria(N_HABILIDADES);
+
+    if (c == NULL)
+        return NULL;
+
+    for (int i = 0; i < N_HEROIS; i++) {
+        if (cjto_pertence(b->pres, i) == 1) {
+            struct heroi_t *h = mundo_heroi(w, i);
+            for (int j = 0; j < N_HABILIDADES; j++) {
+                if (cjto_pertence(heroi_habilidades(h), j) == 1)
+                    cjto_insere(c, j);
+            }
+        }
+    }
+
+    return c;
+}
+
 void base_imprime(struct base_t *b)
 {
     if (b == NULL)
