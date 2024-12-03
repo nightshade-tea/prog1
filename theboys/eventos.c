@@ -11,6 +11,8 @@
 #include "base.h"
 #include "fila.h"
 
+/* params_t */
+
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
                              struct missao_t *m)
 {
@@ -58,6 +60,8 @@ struct missao_t *params_missao(struct params_t *p)
 
     return p->m;
 }
+
+/* eventos */
 
 void mensagem_chega(int t, struct heroi_t *h, struct base_t *b, int espera)
 {
@@ -352,6 +356,8 @@ void mensagem_missao_cumprida(int t, struct missao_t *m, struct base_t *b,
     cjto_destroi(habs);
 }
 
+/* Encontra a base mais próxima a uma missão com as habilidades necessárias.
+ * Retorno: ponteiro p/ bmp ou NULL em caso de erro. */
 struct base_t *encontra_bmp(struct missao_t *m, struct mundo_t *w)
 {
     if (m == NULL || w == NULL)
