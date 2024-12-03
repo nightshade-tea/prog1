@@ -237,6 +237,34 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
     fprio_insere(lef, p, EV_AVISA, t);
 }
 
+struct base_t *encontra_bmp(struct missao_t *m, struct mundo_t *w)
+{
+    if (m == NULL || w == NULL)
+        return NULL;
+
+    struct cjto_t *habs_necessarias = missao_habilidades(m);
+    struct base_t *bmp = NULL;
+    int i;
+
+    for (i = 0; i < N_BASES; i++) {
+        struct base_t *b = mundo_base(w, i);
+        struct cjto_t *b_habs = base_uniao_habilidades(b, w);
+
+        int dist_atual = ponto_distancia(base_local(bmp), missao_local(m));
+        int dist_b = ponto_distancia(base_local(b), missao_local(m));
+
+        int eh_mais_perto = (bmp == NULL || dist_b < dist_atual);
+        int tem_habs_necessarias = (cjto_contem(b_habs, habs_necessarias) == 1);
+
+        if (tem_habs_necessarias && eh_mais_perto)
+            bmp = b;
+
+        b_habs = cjto_destroi(b_habs);
+    }
+
+    return bmp;
+}
+
 // TODO: modularizar missao()
 void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 {
@@ -250,26 +278,7 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 
     missao_tenta(m);
 
-    int i;
-    struct base_t *bmp = NULL;
-    for (i = 0; i < N_BASES; i++) {
-        struct base_t *b = mundo_base(w, i);
-        struct cjto_t *habs = base_habilidades(b, w);
-
-        if (cjto_contem(habs, missao_habilidades(m)) != 1) {
-            habs = cjto_destroi(habs);
-            continue;
-        }
-
-        if (bmp != NULL && ponto_distancia(base_local(bmp), missao_local(m)) <
-            ponto_distancia(base_local(b), missao_local(m))) {
-            habs = cjto_destroi(habs);
-            continue;
-        }
-        
-        bmp = b;
-        habs = cjto_destroi(habs);
-    }
+    struct base_t *bmp = encontra_bmp(m, w);
 
     if (bmp == NULL) { // IMPOSSIVEL
         struct params_t *p = params_cria(NULL, NULL, m);
@@ -284,7 +293,7 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 
     missao_cumpre(m);
     
-    struct cjto_t *habs_bmp = base_habilidades(bmp, w);
+    struct cjto_t *habs_bmp = base_uniao_habilidades(bmp, w);
 
     printf("%6d: MISSAO %d CUMPRIDA BASE %d HABS: [ ", t, missao_id(m),
            base_id(bmp));
@@ -293,6 +302,7 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 
     cjto_destroi(habs_bmp);
 
+    int i;
     for (i = 0; i < N_HEROIS; i++) {
         struct heroi_t *h = mundo_heroi(w, i);
 

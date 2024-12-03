@@ -45,7 +45,7 @@ int base_fila_max_atualiza(struct base_t *b);
 
 int base_lotada(struct base_t *b);
 
-struct cjto_t *base_habilidades(struct base_t *b, struct mundo_t *w);
+struct cjto_t *base_uniao_habilidades(struct base_t *b, struct mundo_t *w);
 
 void base_imprime(struct base_t *b);
 

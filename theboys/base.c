@@ -128,7 +128,7 @@ int base_lotada(struct base_t *b)
     return (cjto_card(b->pres) >= b->lot);
 }
 
-struct cjto_t *base_habilidades(struct base_t *b, struct mundo_t *w)
+struct cjto_t *base_uniao_habilidades(struct base_t *b, struct mundo_t *w)
 {
     if (b == NULL || w == NULL)
         return NULL;
