@@ -4,6 +4,7 @@
 #include "heroi.h"
 #include "base.h"
 
+/* Libera a memória alocada para um vetor de herois e aterra seu ponteiro. */
 void vh_destroi(struct heroi_t ***vh)
 {
     if (vh == NULL || *vh == NULL)
@@ -17,6 +18,8 @@ void vh_destroi(struct heroi_t ***vh)
     *vh = NULL;
 }
 
+/* Cria um vetor de herois com capacidade para N_HEROIS.
+ * Retorno: endereço do novo vetor ou NULL em caso de erro. */
 struct heroi_t **vh_cria()
 {
     struct heroi_t **vh = malloc(N_HEROIS * sizeof(struct heroi_t *));
@@ -37,6 +40,7 @@ struct heroi_t **vh_cria()
     return vh;
 }
 
+/* Libera a memória alocada para um vetor de bases e aterra seu ponteiro. */
 void vb_destroi(struct base_t ***vb)
 {
     if (vb == NULL || *vb == NULL)
@@ -50,6 +54,8 @@ void vb_destroi(struct base_t ***vb)
     *vb = NULL;
 }
 
+/* Cria um vetor de bases com capacidade para N_BASES.
+ * Retorno: endereço do novo vetor ou NULL em caso de erro. */
 struct base_t **vb_cria()
 {
     struct base_t **vb = malloc(N_BASES * sizeof(struct base_t *));
@@ -70,6 +76,7 @@ struct base_t **vb_cria()
     return vb;
 }
 
+/* Libera a memória alocada para um vetor de missoes e aterra seu ponteiro. */
 void vm_destroi(struct missao_t ***vm)
 {
     if (vm == NULL || *vm == NULL)
@@ -83,6 +90,8 @@ void vm_destroi(struct missao_t ***vm)
     *vm = NULL;
 }
 
+/* Cria um vetor de missoes com capacidade para N_MISSOES.
+ * Retorno: endereço do novo vetor ou NULL em caso de erro. */
 struct missao_t **vm_cria()
 {
     struct missao_t **vm = malloc(N_MISSOES * sizeof(struct missao_t *));
