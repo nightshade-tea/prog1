@@ -62,6 +62,20 @@ struct missao_t *params_missao(struct params_t *p)
     return p->m;
 }
 
+void mensagem_chega(int t, struct heroi_t *h, struct base_t *b, int espera)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) ", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
+
+    if (espera)
+        printf("ESPERA\n");
+    else
+        printf("DESISTE\n");
+}
+
 void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
@@ -80,16 +94,12 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (p == NULL)
         return;
 
-    printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) ", t, heroi_id(h),
-           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
-
-    if (espera) {
+    if (espera)
         fprio_insere(lef, p, EV_ESPERA, t);
-        printf("ESPERA\n");
-    } else {
+    else
         fprio_insere(lef, p, EV_DESISTE, t);
-        printf("DESISTE\n");
-    }
+
+    mensagem_chega(t, h, b, espera);
 }
 
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
