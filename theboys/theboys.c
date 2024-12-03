@@ -73,13 +73,13 @@ int main()
     if (lef == NULL)
         erro("FALHA NA ALOCAÇÃO EM fprio_cria()");
 
-    if (agendar_chegadas(w, lef) == -1)
+    if (agendar_chegadas(w, lef))
         erro("ERRO EM agendar_chegadas()");
 
-    if (agendar_missoes(w, lef) == -1)
+    if (agendar_missoes(w, lef))
         erro("ERRO EM agendar_missoes()");
 
-    if (agendar_fim(lef) == -1)
+    if (agendar_fim(lef))
         erro("ERRO EM agendar_fim()");
 
     int ev;
