@@ -30,15 +30,15 @@ struct missao_t *missao_cria(int id)
     m->habs =
         cjto_aleat(aleat(M_MIN_HABILIDADES, M_MAX_HABILIDADES), N_HABILIDADES);
 
-    m->per = aleat(M_MIN_PERIGO, M_MAX_PERIGO);
-    m->id = id;
-    m->cumpr = 0;
-    m->tents = 0;
-
     if (m->loc == NULL || m->habs == NULL) {
         missao_destroi(&m);
         return NULL;
     }
+
+    m->per = aleat(M_MIN_PERIGO, M_MAX_PERIGO);
+    m->id = id;
+    m->cumpr = 0;
+    m->tents = 0;
 
     return m;
 }
