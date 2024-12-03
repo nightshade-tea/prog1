@@ -34,10 +34,10 @@ struct heroi_t *heroi_cria(int id, struct base_t *b)
 
     h->id = id;
     h->base = b;
+    h->morto = 0;
     h->exp = H_EXPERIENCIA_INICIAL;
     h->pac = aleat(H_MIN_PACIENCIA, H_MAX_PACIENCIA);
     h->vel = aleat(H_MIN_VELOCIDADE, H_MAX_VELOCIDADE);
-    h->morto = 0;
 
     return h;
 }
