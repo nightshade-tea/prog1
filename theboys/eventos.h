@@ -37,27 +37,27 @@ struct base_t *params_base(struct params_t *p);
 struct missao_t *params_missao(struct params_t *p);
 
 /* eventos */
-void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+int chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 
-void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+int espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 
-void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
-             struct mundo_t *w);
+int desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+            struct mundo_t *w);
 
-void avisa(int t, struct base_t *b, struct fprio_t *lef);
+int avisa(int t, struct base_t *b, struct fprio_t *lef);
 
-void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+int entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 
-void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
-         struct mundo_t *w);
+int sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
+        struct mundo_t *w);
 
-void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
+int viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef);
 
-void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
-           struct fprio_t *lef);
+int morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
+          struct fprio_t *lef);
 
-void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w);
+int missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w);
 
-void fim(int t);
+int fim(int t);
 
 #endif
