@@ -33,9 +33,9 @@ struct base_t *base_cria(int id)
     b->lot = aleat(B_MIN_LOTACAO, B_MAX_LOTACAO);
     b->pres = cjto_cria(N_HEROIS);
     b->esp = fila_cria();
-    b->id = id;
-    b->fmax = 0;
     b->mcumpr = 0;
+    b->fmax = 0;
+    b->id = id;
 
     if (b->loc == NULL || b->esp == NULL || b->pres == NULL) {
         base_destroi(&b);
@@ -157,8 +157,6 @@ void base_imprime(struct base_t *b)
     if (b == NULL)
         return;
 
-    printf("BASE %2d ", b->id);
-    printf("LOT %2d ", b->lot);
-    printf("FILA MAX %2d ", b->fmax);
-    printf("MISSOES %d\n", b->mcumpr);
+    printf("BASE %2d LOT %2d FILA MAX %2d MISSOES %d\n", b->id, b->lot, b->fmax,
+           b->mcumpr);
 }
