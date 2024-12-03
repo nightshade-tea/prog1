@@ -84,6 +84,7 @@ int main()
 
     int ev;
     int clk;
+    int ret;
     do {
         struct params_t *p = fprio_retira(lef, &ev, &clk);
 
@@ -94,38 +95,53 @@ int main()
 
         switch (ev) {
         case EV_CHEGA:
-            chega(mundo_relogio(w), params_heroi(p), params_base(p), lef);
+            ret = chega(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_ESPERA:
-            espera(mundo_relogio(w), params_heroi(p), params_base(p), lef);
+            ret =
+                espera(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_DESISTE:
-            desiste(mundo_relogio(w), params_heroi(p), params_base(p), lef, w);
+            ret = desiste(mundo_relogio(w), params_heroi(p), params_base(p),
+                          lef, w);
             break;
         case EV_AVISA:
-            avisa(mundo_relogio(w), params_base(p), lef);
+            ret = avisa(mundo_relogio(w), params_base(p), lef);
             break;
         case EV_ENTRA:
-            entra(mundo_relogio(w), params_heroi(p), params_base(p), lef);
+            ret = entra(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_SAI:
-            sai(mundo_relogio(w), params_heroi(p), params_base(p), lef, w);
+            ret =
+                sai(mundo_relogio(w), params_heroi(p), params_base(p), lef, w);
             break;
         case EV_VIAJA:
-            viaja(mundo_relogio(w), params_heroi(p), params_base(p), lef);
+            ret = viaja(mundo_relogio(w), params_heroi(p), params_base(p), lef);
             break;
         case EV_MORRE:
-            morre(mundo_relogio(w), params_heroi(p), params_base(p),
-                  params_missao(p), lef);
+            ret = morre(mundo_relogio(w), params_heroi(p), params_base(p),
+                        params_missao(p), lef);
             break;
         case EV_MISSAO:
-            missao(mundo_relogio(w), params_missao(p), lef, w);
+            ret = missao(mundo_relogio(w), params_missao(p), lef, w);
             break;
         case EV_FIM:
-            fim(mundo_relogio(w));
+            ret = fim(mundo_relogio(w));
             break;
         default:
             erro("EVENTO INVALIDO");
+            ret = -1;
+        }
+
+        if (ret != 0) {
+            switch (ret) {
+            case -1:
+                printf("ERRO NO EVENTO %d: ARGUMENTOS INVÁLIDOS\n", ev);
+                break;
+            case -2:
+                printf("ERRO NO EVENTO %d: FALHA NA ALOCAÇÃO\n", ev);
+                break;
+            }
         }
 
         params_destroi(&p);
