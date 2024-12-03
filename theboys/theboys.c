@@ -65,22 +65,32 @@ int main()
 
     struct mundo_t *w = mundo_cria();
 
-    if (w == NULL)
+    if (w == NULL) {
         erro("FALHA NA ALOCAÇÃO EM mundo_cria()");
+        return -1;
+    }
 
     struct fprio_t *lef = fprio_cria();
 
-    if (lef == NULL)
+    if (lef == NULL) {
         erro("FALHA NA ALOCAÇÃO EM fprio_cria()");
+        return -1;
+    }
 
-    if (agendar_chegadas(w, lef))
+    if (agendar_chegadas(w, lef)) {
         erro("ERRO EM agendar_chegadas()");
+        return -1;
+    }
 
-    if (agendar_missoes(w, lef))
+    if (agendar_missoes(w, lef)) {
         erro("ERRO EM agendar_missoes()");
+        return -1;
+    }
 
-    if (agendar_fim(lef))
+    if (agendar_fim(lef)) {
         erro("ERRO EM agendar_fim()");
+        return -1;
+    }
 
     int ev;
     int clk;
@@ -130,16 +140,15 @@ int main()
             break;
         default:
             erro("EVENTO INVALIDO");
-            ret = -1;
         }
 
         if (ret != 0) {
             switch (ret) {
             case -1:
-                printf("ERRO NO EVENTO %d: ARGUMENTOS INVÁLIDOS\n", ev);
+                fprintf(stderr, "ERRO NO EVENTO %d: ARGUMENTOS INVÁLIDOS\n", ev);
                 break;
             case -2:
-                printf("ERRO NO EVENTO %d: FALHA NA ALOCAÇÃO\n", ev);
+                fprintf(stderr, "ERRO NO EVENTO %d: FALHA NA ALOCAÇÃO\n", ev);
                 break;
             }
         }
