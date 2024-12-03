@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "fila.h"
 
+/* Cria um nodo com o item, id e próximo especificados nos parâmetros.
+ * Retorno: ponteiro p/ o novo nodo ou NULL em caso de erro. */
 struct fnodo_t *fnodo_cria(void *item, int id, struct fnodo_t *prox)
 {
     struct fnodo_t *n = malloc(sizeof(struct fnodo_t));
@@ -16,6 +18,8 @@ struct fnodo_t *fnodo_cria(void *item, int id, struct fnodo_t *prox)
     return n;
 }
 
+/* Libera a memória alocada para o nodo especificado e aterra seu ponteiro.
+ * NÃO desaloca o item do nodo. */
 void fnodo_destroi(struct fnodo_t **n)
 {
     if (n == NULL || *n == NULL)
@@ -25,6 +29,7 @@ void fnodo_destroi(struct fnodo_t **n)
     *n = NULL;
 }
 
+/* Imprime o id do nodo no formato "id", sem quebra de linha. */
 void fnodo_imprime(struct fnodo_t *n)
 {
     if (n == NULL)
@@ -33,6 +38,9 @@ void fnodo_imprime(struct fnodo_t *n)
     printf("%d", n->id);
 }
 
+/* Verifica se a fila especificada no parâmetro está vazia.
+ * Retorno: 1 se a fila estiver vazia, 0 se não estiver vazia, ou -1 en caso de
+ * erro. */
 int fila_vazia(struct fila_t *f)
 {
     if (f == NULL)
@@ -41,6 +49,9 @@ int fila_vazia(struct fila_t *f)
     return (f->num == 0);
 }
 
+/* Verifica se o item já existe em algum nodo da fila.
+ * Retorno: 1 se o item já está na fila, 0 se o item não está na fila, ou -1 em
+ * caso de erro. */
 int fila_item_incluso(struct fila_t *f, void *item)
 {
     if (f == NULL || item == NULL)
