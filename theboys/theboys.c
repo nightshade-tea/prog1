@@ -139,7 +139,7 @@ int main()
             ret = fim(mundo_relogio(w), w);
             break;
         default:
-            erro("EVENTO INVALIDO");
+            erro("EVENTO INVÁLIDO");
         }
 
         if (ret != 0) {
