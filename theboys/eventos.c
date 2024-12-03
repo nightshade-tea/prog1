@@ -12,7 +12,6 @@
 #include "fila.h"
 
 // TODO: adicionar valor de retorno (erro) para os eventos
-// TODO: fazer funcoes mensagemX_<evento>()
 
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
                              struct missao_t *m)
@@ -102,6 +101,15 @@ void chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     mensagem_chega(t, h, b, espera);
 }
 
+void mensagem_espera(int t, struct heroi_t *h, struct base_t *b)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: ESPERA HEROI %2d BASE %d (%2d)\n", t, heroi_id(h), base_id(b),
+           fila_tamanho(base_espera(b)));
+}
+
 void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
@@ -112,12 +120,19 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     if (p == NULL)
         return;
 
-    printf("%6d: ESPERA HEROI %2d BASE %d (%2d)\n", t, heroi_id(h), base_id(b),
-           fila_tamanho(base_espera(b)));
+    mensagem_espera(t, h, b);
 
     fila_insere(base_espera(b), h, heroi_id(h));
 
     fprio_insere(lef, p, EV_AVISA, t);
+}
+
+void mensagem_desiste(int t, struct heroi_t *h, struct base_t *b)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: DESIST HEROI %2d BASE %d\n", t, heroi_id(h), base_id(b));
 }
 
 void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
@@ -132,9 +147,29 @@ void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (p == NULL)
         return;
 
-    printf("%6d: DESIST HEROI %2d BASE %d\n", t, heroi_id(h), base_id(b));
+    mensagem_desiste(t, h, b);
 
     fprio_insere(lef, p, EV_VIAJA, t);
+}
+
+void mensagem_avisa(int t, struct base_t *b)
+{
+    if (b == NULL)
+        return;
+
+    printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ", t, base_id(b),
+           cjto_card(base_presentes(b)), base_lotacao(b));
+    fila_imprime(base_espera(b));
+    printf(" ]\n");
+}
+
+void mensagem_avisa_admite(int t, struct base_t *b, struct heroi_t *h)
+{
+    if (b == NULL || h == NULL)
+        return;
+
+    printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d\n", t, base_id(b),
+           heroi_id(h));
 }
 
 void avisa(int t, struct base_t *b, struct fprio_t *lef)
@@ -142,10 +177,7 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
     if (b == NULL || lef == NULL)
         return;
 
-    printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ", t, base_id(b),
-           cjto_card(base_presentes(b)), base_lotacao(b));
-    fila_imprime(base_espera(b));
-    printf(" ]\n");
+    mensagem_avisa(t, b);
 
     while (!base_lotada(b) && fila_tamanho(base_espera(b)) > 0) {
         struct heroi_t *h = fila_retira(base_espera(b), NULL);
@@ -154,14 +186,22 @@ void avisa(int t, struct base_t *b, struct fprio_t *lef)
         if (h != NULL && p != NULL) {
             cjto_insere(base_presentes(b), heroi_id(h));
             fprio_insere(lef, p, EV_ENTRA, t);
-            printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d\n", t, base_id(b),
-                   heroi_id(h));
+            mensagem_avisa_admite(t, b, h);
         } else {
             params_destroi(&p);
         }
     }
 
     base_fila_max_atualiza(b);
+}
+
+void mensagem_entra(int t, struct heroi_t *h, struct base_t *b, int tpb)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: ENTRA  HEROI %2d BASE %d (%2d/%2d) SAI %d\n", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b), t + tpb);
 }
 
 void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
@@ -176,10 +216,18 @@ void entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 
     int tpb = 15 + (heroi_paciencia(h) * aleat(1, 20));
 
-    printf("%6d: ENTRA  HEROI %2d BASE %d (%2d/%2d) SAI %d\n", t, heroi_id(h),
-           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b), t + tpb);
+    mensagem_entra(t, h, b, tpb);
 
     fprio_insere(lef, p, EV_SAI, t + tpb);
+}
+
+void mensagem_sai(int t, struct heroi_t *h, struct base_t *b)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: SAI    HEROI %2d BASE %d (%2d/%2d)\n", t, heroi_id(h),
+           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
 }
 
 void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
@@ -201,11 +249,20 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
         return;
     }
 
-    printf("%6d: SAI    HEROI %2d BASE %d (%2d/%2d)\n", t, heroi_id(h),
-           base_id(b), cjto_card(base_presentes(b)), base_lotacao(b));
+    mensagem_sai(t, h, b);
 
     fprio_insere(lef, pv, EV_VIAJA, t);
     fprio_insere(lef, pa, EV_AVISA, t);
+}
+
+void mensagem_viaja(int t, struct heroi_t *h, struct base_t *b, int ds, int dt)
+{
+    if (h == NULL || b == NULL)
+        return;
+
+    printf("%6d: VIAJA  HEROI %2d BASE %d BASE %d DIST %d VEL %d CHEGA %d\n", t,
+           heroi_id(h), base_id(heroi_base(h)), base_id(b), ds,
+           heroi_velocidade(h), t + dt);
 }
 
 void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
@@ -221,11 +278,17 @@ void viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
     int ds = ponto_distancia(base_local(heroi_base(h)), base_local(b));
     int dt = ds / heroi_velocidade(h);
 
-    printf("%6d: VIAJA  HEROI %2d BASE %d BASE %d DIST %d VEL %d CHEGA %d\n", t,
-           heroi_id(h), base_id(heroi_base(h)), base_id(b), ds,
-           heroi_velocidade(h), t + dt);
+    mensagem_viaja(t, h, b, ds, dt);
 
     fprio_insere(lef, p, EV_CHEGA, t + dt);
+}
+
+void mensagem_morre(int t, struct heroi_t *h, struct missao_t *m)
+{
+    if (h == NULL || m == NULL)
+        return;
+
+    printf("%6d: MORRE  HEROI %2d MISSAO %d\n", t, heroi_id(h), missao_id(m));
 }
 
 void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
@@ -237,7 +300,7 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
     cjto_retira(base_presentes(b), heroi_id(h));
     heroi_morre(h);
 
-    printf("%6d: MORRE  HEROI %2d MISSAO %d\n", t, heroi_id(h), missao_id(m));
+    mensagem_morre(t, h, m);
 
     struct params_t *p = params_cria(NULL, b, NULL);
 
@@ -245,6 +308,41 @@ void morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
         return;
 
     fprio_insere(lef, p, EV_AVISA, t);
+}
+
+void mensagem_missao(int t, struct missao_t *m)
+{
+    if (m == NULL)
+        return;
+
+    printf("%6d: MISSAO %d TENT %d HAB REQ: [ ", t, missao_id(m),
+           missao_tentativas(m));
+    cjto_imprime(missao_habilidades(m));
+    printf(" ]\n");
+}
+
+void mensagem_missao_impossivel(int t, struct missao_t *m)
+{
+    if (m == NULL)
+        return;
+
+    printf("%6d: MISSAO %d IMPOSSIVEL\n", t, missao_id(m));
+}
+
+void mensagem_missao_cumprida(int t, struct missao_t *m, struct base_t *b,
+                              struct mundo_t *w)
+{
+    if (m == NULL || b == NULL)
+        return;
+
+    struct cjto_t *habs = base_uniao_habilidades(b, w);
+
+    printf("%6d: MISSAO %d CUMPRIDA BASE %d HABS: [ ", t, missao_id(m),
+           base_id(b));
+    cjto_imprime(habs);
+    printf(" ]\n");
+
+    cjto_destroi(habs);
 }
 
 struct base_t *encontra_bmp(struct missao_t *m, struct mundo_t *w)
@@ -275,16 +373,12 @@ struct base_t *encontra_bmp(struct missao_t *m, struct mundo_t *w)
     return bmp;
 }
 
-// TODO: modularizar missao()
 void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 {
     if (m == NULL || lef == NULL)
         return;
 
-    printf("%6d: MISSAO %d TENT %d HAB REQ: [ ", t, missao_id(m),
-           missao_tentativas(m));
-    cjto_imprime(missao_habilidades(m));
-    printf(" ]\n");
+    mensagem_missao(t, m);
 
     missao_tenta(m);
 
@@ -297,20 +391,13 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
             return;
 
         fprio_insere(lef, p, EV_MISSAO, t + (24 * 60));
-        printf("%6d: MISSAO %d IMPOSSIVEL\n", t, missao_id(m));
+        mensagem_missao_impossivel(t, m);
         return;
     }
 
     missao_cumpre(m);
 
-    struct cjto_t *habs_bmp = base_uniao_habilidades(bmp, w);
-
-    printf("%6d: MISSAO %d CUMPRIDA BASE %d HABS: [ ", t, missao_id(m),
-           base_id(bmp));
-    cjto_imprime(habs_bmp);
-    printf(" ]\n");
-
-    cjto_destroi(habs_bmp);
+    mensagem_missao_cumprida(t, m, bmp, w);
 
     int i;
     for (i = 0; i < N_HEROIS; i++) {
