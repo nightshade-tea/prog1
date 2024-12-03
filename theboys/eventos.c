@@ -11,7 +11,7 @@
 #include "base.h"
 #include "fila.h"
 
-// TODO: remover checks de NULL para params_t. fprio_insere não aceita NULL.
+// TODO: adicionar valor de retorno (erro) para os eventos
 // TODO: fazer funcoes mensagemX_<evento>()
 
 struct params_t *params_cria(struct heroi_t *h, struct base_t *b,
