@@ -27,8 +27,8 @@ struct missao_t *missao_cria(int id)
     m->loc = ponto_cria(aleat(0, N_TAMANHO_MUNDO - 1),
                         aleat(0, N_TAMANHO_MUNDO - 1));
 
-    m->habs = cjto_aleat(aleat(M_MIN_HABILIDADES, M_MAX_HABILIDADES),
-                         N_HABILIDADES);
+    m->habs =
+        cjto_aleat(aleat(M_MIN_HABILIDADES, M_MAX_HABILIDADES), N_HABILIDADES);
 
     m->per = aleat(M_MIN_PERIGO, M_MAX_PERIGO);
     m->id = id;

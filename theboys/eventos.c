@@ -111,7 +111,7 @@ void espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 
     if (p == NULL)
         return;
-    
+
     printf("%6d: ESPERA HEROI %2d BASE %d (%2d)\n", t, heroi_id(h), base_id(b),
            fila_tamanho(base_espera(b)));
 
@@ -126,8 +126,8 @@ void desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
     if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
         return;
 
-    struct params_t *p = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)),
-                                     NULL);
+    struct params_t *p =
+        params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)), NULL);
 
     if (p == NULL)
         return;
@@ -190,8 +190,8 @@ void sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
 
     cjto_retira(base_presentes(b), heroi_id(h));
 
-    struct params_t *pv = params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)),
-                                      NULL);
+    struct params_t *pv =
+        params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)), NULL);
 
     struct params_t *pa = params_cria(NULL, b, NULL);
 
@@ -302,7 +302,7 @@ void missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
     }
 
     missao_cumpre(m);
-    
+
     struct cjto_t *habs_bmp = base_uniao_habilidades(bmp, w);
 
     printf("%6d: MISSAO %d CUMPRIDA BASE %d HABS: [ ", t, missao_id(m),

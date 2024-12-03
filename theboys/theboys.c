@@ -18,8 +18,8 @@ int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
         int b = aleat(0, N_BASES - 1);
         int t = aleat(0, 4320); // 4320 = 3 dias
 
-        struct params_t *p = params_cria(mundo_heroi(w, i), mundo_base(w, b),
-                                         NULL);
+        struct params_t *p =
+            params_cria(mundo_heroi(w, i), mundo_base(w, b), NULL);
 
         if (p == NULL || fprio_insere(lef, p, EV_CHEGA, t) == -1)
             return -1;

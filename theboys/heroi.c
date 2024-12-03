@@ -24,8 +24,8 @@ struct heroi_t *heroi_cria(int id, struct base_t *b)
     if (h == NULL)
         return NULL;
 
-    h->habs = cjto_aleat(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES),
-                         N_HABILIDADES);
+    h->habs =
+        cjto_aleat(aleat(H_MIN_HABILIDADES, H_MAX_HABILIDADES), N_HABILIDADES);
 
     if (h->habs == NULL) {
         heroi_destroi(&h);
