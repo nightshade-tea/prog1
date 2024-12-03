@@ -127,6 +127,7 @@ struct mundo_t *mundo_cria()
     w->bases = vb_cria();
     w->missoes = vm_cria();
     w->clk = T_INICIO;
+    w->evs_tratados = 0;
 
     if (w->herois == NULL || w->bases == NULL || w->missoes == NULL) {
         mundo_destroi(&w);
@@ -168,10 +169,19 @@ int mundo_relogio(struct mundo_t *w)
     return w->clk;
 }
 
+int mundo_eventos_tratados(struct mundo_t *w)
+{
+    if (w == NULL)
+        return -1;
+
+    return w->evs_tratados;
+}
+
 void mundo_atualiza_relogio(struct mundo_t *w, int t)
 {
     if (w == NULL || t < 0)
         return;
 
     w->clk = t;
+    w->evs_tratados++;
 }

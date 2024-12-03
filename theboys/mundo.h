@@ -19,6 +19,7 @@ struct mundo_t {
     struct base_t **bases;
     struct missao_t **missoes;
     int clk;
+    int evs_tratados;
 };
 
 struct mundo_t *mundo_cria();
@@ -32,6 +33,8 @@ struct base_t *mundo_base(struct mundo_t *w, int id);
 struct missao_t *mundo_missao(struct mundo_t *w, int id);
 
 int mundo_relogio(struct mundo_t *w);
+
+int mundo_eventos_tratados(struct mundo_t *w);
 
 void mundo_atualiza_relogio(struct mundo_t *w, int t);
 
