@@ -30,17 +30,18 @@ struct base_t *base_cria(int id)
     b->loc = ponto_cria(aleat(0, N_TAMANHO_MUNDO - 1),
                         aleat(0, N_TAMANHO_MUNDO - 1));
 
-    b->lot = aleat(B_MIN_LOTACAO, B_MAX_LOTACAO);
     b->pres = cjto_cria(N_HEROIS);
     b->esp = fila_cria();
-    b->mcumpr = 0;
-    b->fmax = 0;
-    b->id = id;
 
     if (b->loc == NULL || b->esp == NULL || b->pres == NULL) {
         base_destroi(&b);
         return NULL;
     }
+
+    b->lot = aleat(B_MIN_LOTACAO, B_MAX_LOTACAO);
+    b->mcumpr = 0;
+    b->fmax = 0;
+    b->id = id;
 
     return b;
 }
