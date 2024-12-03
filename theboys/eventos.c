@@ -426,10 +426,60 @@ int missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
     return 0;
 }
 
-int fim(int t)
+int fim(int t, struct mundo_t *w)
 {
-    // TODO
+    if (w == NULL)
+        return -1;
 
-    printf("%6d: FIM\n", t);
+    printf("%6d: FIM\n\n", t);
+
+    int i;
+
+    // apresenta estatisticas dos herois
+    int total_mortos = 0;
+    for (i = 0; i < N_HEROIS; i++) {
+        if (heroi_morto(mundo_heroi(w, i)))
+            total_mortos++;
+
+        heroi_imprime(mundo_heroi(w, i));
+    }
+
+    printf("\n");
+
+    // apresenta estatisticas das bases
+    for (i = 0; i < N_BASES; i++)
+        base_imprime(mundo_base(w, i));
+
+    printf("\n");
+
+    printf("EVENTOS TRATADOS: %d\n", mundo_eventos_tratados(w));
+
+    // apresenta estatisticas das missoes
+    int missoes_cumpridas = 0, total_tentativas = 0, max_tentativas = 0;
+    int min_tentativas = missao_tentativas(mundo_missao(w, 0));
+
+    for (i = 0; i < N_MISSOES; i++) {
+        struct missao_t *m = mundo_missao(w, i);
+
+        if (missao_cumprida(m) == 1)
+            missoes_cumpridas++;
+
+        if (missao_tentativas(m) > max_tentativas)
+            max_tentativas = missao_tentativas(m);
+
+        if (missao_tentativas(m) < min_tentativas)
+            min_tentativas = missao_tentativas(m);
+
+        total_tentativas += missao_tentativas(m);
+    }
+
+    printf("MISSOES CUMPRIDAS: %d/%d (%.1f%%)", missoes_cumpridas, N_MISSOES,
+           (100.0 * missoes_cumpridas) / N_MISSOES);
+
+    printf("TENTATIVAS/MISSAO: MIN %d, MAX %d, MEDIA %.1f", min_tentativas,
+           max_tentativas, (1.0 * total_tentativas) / N_MISSOES);
+
+    printf("TAXA MORTALIDADE: %.1f%%", (100.0 * total_mortos) / N_HEROIS);
+
     return 0;
 }

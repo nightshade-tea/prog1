@@ -126,7 +126,7 @@ int main()
             ret = missao(mundo_relogio(w), params_missao(p), lef, w);
             break;
         case EV_FIM:
-            ret = fim(mundo_relogio(w));
+            ret = fim(mundo_relogio(w), w);
             break;
         default:
             erro("EVENTO INVALIDO");

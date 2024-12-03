@@ -58,6 +58,6 @@ int morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
 
 int missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w);
 
-int fim(int t);
+int fim(int t, struct mundo_t *w);
 
 #endif
