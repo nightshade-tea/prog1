@@ -404,6 +404,8 @@ int missao(int t, struct missao_t *m, struct fprio_t *lef, struct mundo_t *w)
 
     missao_cumpre(m);
 
+    base_missoes_cumpridas_inc(bmp);
+
     mensagem_missao_cumprida(t, m, bmp, w);
 
     int i;
