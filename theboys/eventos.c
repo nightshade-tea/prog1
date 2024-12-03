@@ -473,13 +473,13 @@ int fim(int t, struct mundo_t *w)
         total_tentativas += missao_tentativas(m);
     }
 
-    printf("MISSOES CUMPRIDAS: %d/%d (%.1f%%)", missoes_cumpridas, N_MISSOES,
+    printf("MISSOES CUMPRIDAS: %d/%d (%.1f%%)\n", missoes_cumpridas, N_MISSOES,
            (100.0 * missoes_cumpridas) / N_MISSOES);
 
-    printf("TENTATIVAS/MISSAO: MIN %d, MAX %d, MEDIA %.1f", min_tentativas,
+    printf("TENTATIVAS/MISSAO: MIN %d, MAX %d, MEDIA %.1f\n", min_tentativas,
            max_tentativas, (1.0 * total_tentativas) / N_MISSOES);
 
-    printf("TAXA MORTALIDADE: %.1f%%", (100.0 * total_mortos) / N_HEROIS);
+    printf("TAXA MORTALIDADE: %.1f%%\n", (100.0 * total_mortos) / N_HEROIS);
 
     return 0;
 }
