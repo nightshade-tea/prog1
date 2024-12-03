@@ -8,6 +8,9 @@
 #include "base.h"
 #include "fila.h"
 
+/* Insere os eventos chega() iniciais na LEF. Cada herói chega em uma base
+ * aleatória em algum momento dos três primeiros dias de simulação.
+ * Retorno: 0 em caso de sucesso ou -1 em caso de erro. */
 int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
 {
     if (lef == NULL || w == NULL)
@@ -28,6 +31,9 @@ int agendar_chegadas(struct mundo_t *w, struct fprio_t *lef)
     return 0;
 }
 
+/* Insere os eventos missao() na LEF. Cada missão é agendada para ocorrer em
+ * algum momento da simulação.
+ * Retorno: 0 em caso de sucesso ou -1 em caso de erro. */
 int agendar_missoes(struct mundo_t *w, struct fprio_t *lef)
 {
     if (lef == NULL || w == NULL)
@@ -46,6 +52,9 @@ int agendar_missoes(struct mundo_t *w, struct fprio_t *lef)
     return 0;
 }
 
+/* Insere o evento fim() na LEF. O evento fim está programado para
+ * T_FIM_DO_MUNDO, definido em mundo.h.
+ * Retorno: 0 em casode sucesso ou -1 em caso de erro. */
 int agendar_fim(struct fprio_t *lef)
 {
     if (lef == NULL)
@@ -77,6 +86,7 @@ int main()
         return -1;
     }
 
+    // insere os eventos iniciais na LEF
     if (agendar_chegadas(w, lef)) {
         erro("ERRO EM agendar_chegadas()");
         return -1;
@@ -92,6 +102,7 @@ int main()
         return -1;
     }
 
+    // loop de tratamento de eventos
     int ev;
     int clk;
     int ret;
@@ -156,6 +167,7 @@ int main()
         params_destroi(&p);
     } while (ev != EV_FIM);
 
+    // libera a memória alocada para a simulação
     mundo_destroi(&w);
     lef = fprio_destroi(lef);
 
