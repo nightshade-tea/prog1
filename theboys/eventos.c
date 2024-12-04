@@ -79,8 +79,11 @@ void mensagem_chega(int t, struct heroi_t *h, struct base_t *b, int espera)
 
 int chega(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
+    if (h == NULL || b == NULL || lef == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     heroi_chega(h, b);
 
@@ -115,8 +118,11 @@ void mensagem_espera(int t, struct heroi_t *h, struct base_t *b)
 
 int espera(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
+    if (h == NULL || b == NULL || lef == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     struct params_t *p = params_cria(NULL, b, NULL);
 
@@ -142,8 +148,11 @@ void mensagem_desiste(int t, struct heroi_t *h, struct base_t *b)
 int desiste(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
             struct mundo_t *w)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || b == NULL || lef == NULL || w == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     struct params_t *p =
         params_cria(h, mundo_base(w, aleat(0, N_BASES - 1)), NULL);
@@ -213,8 +222,11 @@ void mensagem_entra(int t, struct heroi_t *h, struct base_t *b, int tpb)
 
 int entra(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
+    if (h == NULL || b == NULL || lef == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     struct params_t *p = params_cria(h, b, NULL);
 
@@ -241,8 +253,11 @@ void mensagem_sai(int t, struct heroi_t *h, struct base_t *b)
 int sai(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef,
         struct mundo_t *w)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL || w == NULL)
+    if (h == NULL || b == NULL || lef == NULL || w == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     cjto_retira(base_presentes(b), heroi_id(h));
 
@@ -276,8 +291,11 @@ void mensagem_viaja(int t, struct heroi_t *h, struct base_t *b, int ds, int dt)
 
 int viaja(int t, struct heroi_t *h, struct base_t *b, struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
+    if (h == NULL || b == NULL || lef == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     struct params_t *p = params_cria(h, b, NULL);
 
@@ -304,8 +322,11 @@ void mensagem_morre(int t, struct heroi_t *h, struct missao_t *m)
 int morre(int t, struct heroi_t *h, struct base_t *b, struct missao_t *m,
           struct fprio_t *lef)
 {
-    if (h == NULL || heroi_morto(h) || b == NULL || lef == NULL)
+    if (h == NULL || b == NULL || lef == NULL)
         return -1;
+
+    if (heroi_morto(h))
+        return 0;
 
     cjto_retira(base_presentes(b), heroi_id(h));
     heroi_morre(h);
